@@ -23,7 +23,7 @@ public class DoAnTraSua {
         //ggg
         System.out.println("gg");
         System.out.println("chinh sua");
-
+// 1 2 3 
         System.out.println("sssss");
 
         System.out.println("vinh");
