@@ -17,7 +17,7 @@ public class DoAnTraSua {
         // TODO code application logic here
         System.out.println("Xin Chao");
         // kaka
-        //gngggsks
+        System.out.println("haha");
     }
     //helloHello xin chao
 }
