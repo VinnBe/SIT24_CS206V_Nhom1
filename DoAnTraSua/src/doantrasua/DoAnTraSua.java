@@ -16,8 +16,7 @@ public class DoAnTraSua {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Xin Chao");
-        // kaka
-        System.out.println("haha");
+
     }
     //helloHello xin chao
 }
