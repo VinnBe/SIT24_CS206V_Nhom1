@@ -23,7 +23,11 @@ public class DoAnTraSua {
         //ggg
         System.out.println("gg");
         System.out.println("chinh sua");
+
         System.out.println("sssss");
+
+        System.out.println("vinh");
+
     }
     //helloHellsouto xin chao
     
