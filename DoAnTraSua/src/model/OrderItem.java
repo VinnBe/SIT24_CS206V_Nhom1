@@ -8,13 +8,16 @@ package model;
  *
  * @author nhan
  */
-public class Drinks {
-    String name;
-    double price;
-    public static double totalPrice;
-    public Drinks(){}
-        public String toString(){
-        return this.name + " gia: " +this.price + " VND"; 
-    }
+public class OrderItem {
+   Drinks drink;
+   int soLuong;
+   public OrderItem(Drinks drink, int soLuong){
+       this.drink=drink;
+       this.soLuong=soLuong;
+   
+   }
+   
+   public double getTotal(){
+       return drink.price*soLuong;
+  }
 }
-

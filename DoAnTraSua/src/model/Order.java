@@ -4,13 +4,30 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author nhan
  */
 public class Order {
-    double totalPrice;
-    public Order(Drinks d){
-        
+    List<OrderItem> item = new ArrayList<>();
+    double total = 0;
+    public void addItem(Drinks drink, int soLuong){
+        item.add(new OrderItem(drink, soLuong));
+    }
+    public void inDonHang(){
+        System.out.println("Don hang");
+        for (OrderItem x : item){
+            System.out.println(x.drink + " || so luong " + x.soLuong);
+        }
+        System.out.println("Tong so tien la: " + this.total() + " VND");
+    }
+    public double total(){
+        for (OrderItem x : item ){
+            total+=x.getTotal();
+        }
+        return total;
     }
 }

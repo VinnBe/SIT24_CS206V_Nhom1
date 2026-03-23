@@ -10,7 +10,7 @@ package model;
  */
 public class TraSuaThaiXanh extends Drinks{
     public TraSuaThaiXanh(){
-        this.name="Tra Sua Thai Xanh";
+        this.name="Tra sua thai xanh";
         this.price= 25000;
     }
 }

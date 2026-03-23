@@ -11,7 +11,7 @@ package model;
 public class TraSuaTruyenThong extends Drinks {
     
     public TraSuaTruyenThong() {
-        this.name="Tra Sua Truyen Thong";
+        this.name="Tra sua truyen thong";
         this.price= 25000;
     }
 }
