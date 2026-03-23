@@ -6,8 +6,6 @@
 
 ## 📸 Demo
 
-![demo](https://via.placeholder.com/600x300)
-
 ---
 
 ## 🚀 Tính năng
