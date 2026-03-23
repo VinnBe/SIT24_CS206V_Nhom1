@@ -11,10 +11,10 @@ package model;
 public class Drinks {
     String name;
     double price;
-    public static double totalPrice;
     public Drinks(){}
-        public String toString(){
-        return this.name + " gia: " +this.price + " VND"; 
+    @Override
+    public String toString(){
+        return this.name + " gia: " +this.price + "VND"; 
     }
 }
 
