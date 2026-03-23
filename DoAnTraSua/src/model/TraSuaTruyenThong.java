@@ -8,10 +8,17 @@ package model;
  *
  * @author nhan
  */
-public class TraSuaTruyenThong extends Drinks {
-    
+public class TraSuaTruyenThong implements Drink {
+     String name ;
+    double price;
     public TraSuaTruyenThong() {
         this.name="Tra sua truyen thong";
         this.price= 25000;
     }
+    public double getPrice(){
+        return this.price ;
+    }
+        public String toString(){
+           return this.name ; 
+        }
 }

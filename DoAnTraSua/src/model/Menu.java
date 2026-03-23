@@ -9,20 +9,19 @@ package model;
  * @author nhan
  */
 public class Menu {
-    Drinks[] drinks; //tao mang menu gom cac nuoc uong
+    Drink[] drink = new Drink[3];
     public Menu(){
-        this.drinks= new Drinks[3];
-        Drinks tstt= new TraSuaTruyenThong();
-        Drinks tsscl = new TraSuaSocola();
-        Drinks tstx = new TraSuaThaiXanh();
-        drinks[0]= tstt;
-        drinks[1]= tsscl;
-        drinks[2]= tstx;
+        Drink tstt =new TraSuaTruyenThong();
+        Drink tstx =new TraSuaThaiXanh();
+        Drink tsscl =new TraSuaSocola();
+        drink[0]=tstt;
+        drink[1]=tstx;
+        drink[2]=tsscl;
     }
-    public void hienThiMenu(){   //   hiển thị meunu 
-        System.out.println("Menu do uong sieu ngon!!");
-        for (Drinks x: drinks){
-            System.out.println(x);
+    public void hienThiMenu(){
+        System.out.println("Menu nuoc uong siuuu ngonnn!!");
+        for ( Drink x : drink ){
+            System.out.println(x.toString()+ " || Gia tien: " + x.getPrice() + " VND");
         }
     }
 }

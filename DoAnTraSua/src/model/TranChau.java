@@ -8,17 +8,17 @@ package model;
  *
  * @author nhan
  */
-public class TraSuaSocola implements Drink {
-    String name ;
-    double price;
-    public TraSuaSocola(){
-        this.name="Tra sua socola";
-        this.price=30000;
+public class TranChau extends ToppingDecorator{
+    double price=5000;
+    String name = "Tran Chau";
+    public TranChau(Drink drink){
+        super(drink);
     }
+    @Override
     public double getPrice(){
-        return this.price ;
+        return drink.getPrice() + this.price;
     }
     public String toString(){
-         return this.name  ; 
-        }
+       return drink.toString() +" + "+ this.name;
+    }
 }

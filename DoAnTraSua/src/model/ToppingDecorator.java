@@ -8,14 +8,9 @@ package model;
  *
  * @author nhan
  */
-public class OrderItem {
+public abstract class ToppingDecorator implements Drink{            //Lop boc drink goc 
     Drink drink;
-    int soLuong;
-    public OrderItem(Drink drink, int soLuong){
+    public ToppingDecorator(Drink drink){
         this.drink=drink;
-        this.soLuong=soLuong;
-    }
-    public double getPrice(){
-        return drink.getPrice()*soLuong;
     }
 }

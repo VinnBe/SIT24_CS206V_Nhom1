@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package doantrasua;
+import model.BanhPlan;
+import model.Drink;
 import model.Menu;
 import model.Order;
-import model.Drinks;
 import model.TraSuaSocola;
 import model.TraSuaThaiXanh;
 import model.TraSuaTruyenThong;
+import model.TranChau;
 /**
  *
  * @author vinh-nguyen
@@ -22,13 +24,16 @@ public class Main {
         // TODO code application logic here
         Menu menu= new Menu();
         menu.hienThiMenu();
-        Drinks tstt= new TraSuaTruyenThong();
-        Drinks tsscl= new TraSuaSocola();
-        Drinks tstx= new TraSuaThaiXanh();
-        Order order = new Order();
-        order.addItem(tstt, 1);
-        order.addItem(tsscl, 2);
-        order.inDonHang();
+        Drink tstt = new TraSuaTruyenThong();
+        tstt =new TranChau(tstt);
+        tstt =new BanhPlan(tstt);
+        Drink tstx= new TraSuaThaiXanh();
+        tstx=new BanhPlan(tstx);
+        Order order= new Order();
+        order.addItem(tstt, 2);
+        order.addItem(tstx,3);
+        order.getPrice();
+        order.hienThiHoaDon();
     }
     
 }

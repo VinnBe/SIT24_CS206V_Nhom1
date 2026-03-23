@@ -8,13 +8,6 @@ package model;
  *
  * @author nhan
  */
-public class Drinks {
-    String name;
-    double price;
-    public Drinks(){}
-    @Override
-    public String toString(){           //in doi tuong mot cach tuong 
-        return this.name + " gia: " +this.price + "VND"; 
-    }
-}
-
+ public interface Drink {           //interface chung de boc Topping len Dink goc
+    double getPrice();                                                                                                                         
+}   
