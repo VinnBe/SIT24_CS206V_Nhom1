@@ -42,8 +42,16 @@ Mở bằng NetBeans hoặc IntelliJ và chạy file `Main.java`.
 
 ```
 src/
+ ├── doantrasua
+     ├── main
  ├── model/
- ├── view/
+      ├── Drinks
+      ├── Menu 
+      ├── Order
+      ├── OrderItem
+      ├── TraSuaSocola
+      ├── TraSuaThaiXanh
+      ├── TraSuaTruyenThong
  └── controller/
 ```
 
