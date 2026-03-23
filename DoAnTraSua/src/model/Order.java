@@ -26,6 +26,7 @@ public class Order {
            System.out.println(x.drink + " || so luong: " + x.soLuong);
        }
         System.out.println("Tong tien la: " + this.total + " VND");
+        System.out.println("Cam on khach hang da tin tuong <3");
     }
     public double getPrice(){
        for( OrderItem x: item){
