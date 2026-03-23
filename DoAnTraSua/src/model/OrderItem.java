@@ -8,7 +8,7 @@ package model;
  *
  * @author nhan
  */
-public class OrderItem {
+public class OrderItem {        // class  order tung ly
    Drinks drink;
    int soLuong;
    public OrderItem(Drinks drink, int soLuong){
@@ -17,7 +17,7 @@ public class OrderItem {
    
    }
    
-   public double getTotal(){
+   public double getTotal(){        // tong gia cua moi mon 
        return drink.price*soLuong;
   }
 }

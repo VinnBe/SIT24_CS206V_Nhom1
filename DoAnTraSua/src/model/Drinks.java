@@ -13,7 +13,7 @@ public class Drinks {
     double price;
     public Drinks(){}
     @Override
-    public String toString(){
+    public String toString(){           //in doi tuong mot cach tuong 
         return this.name + " gia: " +this.price + "VND"; 
     }
 }

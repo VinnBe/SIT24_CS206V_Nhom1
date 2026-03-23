@@ -9,7 +9,7 @@ package model;
  * @author nhan
  */
 public class Menu {
-    Drinks[] drinks;
+    Drinks[] drinks; //tao mang menu gom cac nuoc uong
     public Menu(){
         this.drinks= new Drinks[3];
         Drinks tstt= new TraSuaTruyenThong();
@@ -19,7 +19,7 @@ public class Menu {
         drinks[1]= tsscl;
         drinks[2]= tstx;
     }
-    public void hienThiMenu(){
+    public void hienThiMenu(){   //   hiển thị meunu 
         System.out.println("Menu do uong sieu ngon!!");
         for (Drinks x: drinks){
             System.out.println(x);
