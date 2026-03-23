@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package doantrasua;
-
+import model.Menu;
 /**
  *
  * @author vinh-nguyen
@@ -15,24 +15,8 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("Xin Chao");
-
-        //eee
-
-        System.out.println("Nhan");
-        //ggg
-        System.out.println("gg");
-        System.out.println("chinh sua");
-// 1 2 3 
-        System.out.println("sssss");
-
-        System.out.println("vvvv");
-
-        System.out.println("qqqqqqq");
-
-        System.out.println("vinh");
-
+        Menu menu= new Menu();
+        menu.hienThiMenu();
     }
-    //helloHellsouto xin chao
     
 }
