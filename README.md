@@ -27,7 +27,7 @@
 ## 📦 Cài đặt
 
 ```bash
-git clone https://github.com/tenban/project.git
+git clone https://github.com/VinnBe/SIT24_CS206V_Nhom1.git
 ```
 
 ---
