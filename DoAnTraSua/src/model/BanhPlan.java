@@ -10,14 +10,25 @@ package model;
  */
 public class BanhPlan extends ToppingDecorator {
     double price = 7000;
-    String name="Banh Plan";
+    String name="Banh Plan";;
     public BanhPlan(Drink drink){
         super(drink);
+         if (!Inventory.useTopping("Banh Plan")) {
+             try{
+             throw new RuntimeException("Het nguyen lieu");
+             }
+             catch(RuntimeException e){
+             System.out.println("Het banh plan");
+            }
+        }
+    }
+    public String getName(){
+        return this.name;
     }
     public double getPrice(){
-        return drink.getPrice() + this.price;
+        return  this.price+ drink.getPrice();
     }
-            public String toString(){
-         return drink.toString() +" + " + this.name ; 
-        }
+     public String toString(){
+        return drink.getName()+ " + " + this.getName();
+    }
 }

@@ -26,14 +26,26 @@ public class Main {
         menu.hienThiMenu();
         Drink tstt = new TraSuaTruyenThong();
         tstt =new TranChau(tstt);
-        tstt =new BanhPlan(tstt);
-        Drink tstx= new TraSuaThaiXanh();
-        tstx=new BanhPlan(tstx);
+         Drink tstx = new TraSuaThaiXanh();
+        tstx =new TranChau(tstx);
+//        tstt =new BanhPlan(tstt);
+//        Drink tstx= new TraSuaThaiXanh();
+//        tstx=new TranChau(tstx);
+  Drink tsscl = new TraSuaSocola();
+        tsscl =new TranChau(tsscl);
+          Drink tstt2 = new TraSuaTruyenThong();
+        tstt2 =new BanhPlan(tstt2);
+          Drink tstx2 = new TraSuaThaiXanh();
+        tstx2 =new TranChau(tstx2);
         Order order= new Order();
-        order.addItem(tstt, 2);
-        order.addItem(tstx,3);
-        order.getPrice();
+        order.addItem(tstt);
+        order.addItem(tstx);
+        order.addItem(tsscl);
+        order.addItem(tstt2);
+        order.addItem(tstx2);
+        //thay doi 
+//        order.addItem(tstx,3);
+       order.getPrice();
         order.hienThiHoaDon();
     }
-    
 }

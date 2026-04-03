@@ -18,7 +18,10 @@ public class TraSuaTruyenThong implements Drink {
     public double getPrice(){
         return this.price ;
     }
-        public String toString(){
+    public String getName(){
            return this.name ; 
-        }
+    }
+    public String toString(){
+        return this.name;
+    }
 }

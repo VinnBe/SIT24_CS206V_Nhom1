@@ -14,24 +14,30 @@ import java.util.List;
 public class Order {
     List<OrderItem> item= new ArrayList<>();
     Drink drink;
+    int soLuong;
     double total=0;
     public Order(){
     }
-    public void addItem(Drink drink, int soLuong){
-        item.add(new OrderItem(drink, soLuong));
+    public void addItem(Drink drink){
+        item.add(new OrderItem(drink));
+        soLuong=item.size();
     }
     public void hienThiHoaDon(){
         System.out.println("Hoa don cua khach hang");
-       for ( OrderItem x:item){
-           System.out.println(x.drink + " || so luong: " + x.soLuong);
-       }
+        for ( OrderItem x: item){
+           System.out.println(x.drink );
+        }
         System.out.println("Tong tien la: " + this.total + " VND");
         System.out.println("Cam on khach hang da tin tuong <3");
-    }
+        }
     public double getPrice(){
        for( OrderItem x: item){
-           total+=x.getPrice();
+           this.total+=x.getPrice();
        }
-       return total;
+        if(this.soLuong >=5){
+            this.total = this.total - (10.0/100.0)*this.total;
+            
+       }
+       return this.total;
    }
 }

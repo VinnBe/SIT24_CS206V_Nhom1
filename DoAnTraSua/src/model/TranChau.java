@@ -13,12 +13,22 @@ public class TranChau extends ToppingDecorator{
     String name = "Tran Chau";
     public TranChau(Drink drink){
         super(drink);
+          if (!Inventory.useTopping("Tran Chau")) {
+              try{
+             throw new RuntimeException("Het nguyen lieu");
+             }
+             catch(RuntimeException tt){
+             System.out.println("Het tran chau");
+            }
+        }
     }
-    @Override
+    public String getName(){
+        return this.name;
+    }
     public double getPrice(){
-        return drink.getPrice() + this.price;
+        return this.price + drink.getPrice();
     }
     public String toString(){
-       return drink.toString() +" + "+ this.name;
+        return drink.getName() + " + " + this.getName();
     }
 }

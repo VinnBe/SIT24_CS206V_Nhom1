@@ -10,12 +10,12 @@ package model;
  */
 public class OrderItem {
     Drink drink;
-    int soLuong;
-    public OrderItem(Drink drink, int soLuong){
+//    int soLuong;
+    public OrderItem(Drink drink){
         this.drink=drink;
-        this.soLuong=soLuong;
+      
     }
     public double getPrice(){
-        return drink.getPrice()*soLuong;
+        return drink.getPrice();
     }
 }

@@ -7,8 +7,7 @@ package model;
 /**
  *
  * @author nhan
- */
- public interface Drink {           //interface chung de boc Topping len Dink goc
-    double getPrice();  
-    String getName();
-}   
+ */interface Topping {
+        String getName();
+        double getPrice();
+}
