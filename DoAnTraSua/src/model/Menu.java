@@ -10,25 +10,22 @@ package model;
  */
 public class Menu {
     Drink[] drink = new Drink[3];
-    String[] topping = new String[2];
+    Drink[] topping = new Drink[2];
     public Menu(){
-        Drink tstt =new TraSuaTruyenThong();
-        Drink tstx =new TraSuaThaiXanh();
-        Drink tsscl =new TraSuaSocola();
-        drink[0]=tstt;
-        drink[1]=tstx;
-        drink[2]=tsscl;
-        topping[0]="Tran Chau || 5000";
-        topping[1]="Banh Plan || 7000";
+        drink[0]=new TraSuaTruyenThong();
+        drink[1]=new TraSuaThaiXanh();
+        drink[2]=new TraSuaSocola();
+        topping[0]= new TranChau();
+        topping[1]=new BanhPlan();
     }
     public void hienThiMenu(){
         System.out.println("Menu nuoc uong siuuu ngonnn!!");
         for ( Drink x : drink ){
-            System.out.println(x.getName() + " || Gia tien: " + x.getPrice() + " VND");
+            System.out.println(x.ten() + " || Gia tien: " + x.gia() + " VND");
         }
         System.out.println("Topping tu chon");
-        for (String tp :topping){
-            System.out.println(tp);
+        for (Drink tp :topping){
+            System.out.println(tp.ten() + " || Gia tien: " + tp.gia() + " VND");
        }
     }
 }

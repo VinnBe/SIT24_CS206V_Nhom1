@@ -12,26 +12,25 @@ import java.util.List;
  * @author nhan
  */
 public class Order {
-    List<OrderItem> item= new ArrayList<>();
+    List<Drink> item= new ArrayList<>();
     Drink drink;
     int soLuong;
     double total=0;
-    public Order(){
-    }
-    public void addItem(Drink drink){
-        item.add(new OrderItem(drink));
+    public Order(){}
+    public void addItem(Drink drink){             // them nuoc uong vao       
+        item.add(drink);
         soLuong=item.size();
     }
     public void hienThiHoaDon(){
         System.out.println("Hoa don cua khach hang");
-        for ( OrderItem x: item){
-           System.out.println(x.drink );
+        for ( Drink x: item){
+           System.out.println(x);
         }
         System.out.println("Tong tien la: " + this.total + " VND");
         System.out.println("Cam on khach hang da tin tuong <3");
         }
     public double getPrice(){
-       for( OrderItem x: item){
+       for( Drink x: item){
            this.total+=x.getPrice();
        }
         if(this.soLuong >=5){

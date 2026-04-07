@@ -15,13 +15,17 @@ public class TraSuaTruyenThong implements Drink {
         this.name="Tra sua truyen thong";
         this.price= 25000;
     }
+        @Override
+    public String ten(){
+           return this.name ; 
+    }
+    public double gia(){
+        return this.price;
+    }
     public double getPrice(){
         return this.price ;
     }
-    public String getName(){
-           return this.name ; 
-    }
     public String toString(){
-        return this.name;
+             return this.name + ": "  + this.price + " VND";
     }
 }

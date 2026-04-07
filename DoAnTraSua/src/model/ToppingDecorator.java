@@ -8,8 +8,9 @@ package model;
  *
  * @author nhan
  */
-public abstract class ToppingDecorator implements Drink, Topping{            //Lop boc drink goc 
+public abstract class ToppingDecorator implements Drink{            //Lop boc drink goc 
     Drink drink;
+    public ToppingDecorator(){}
     public ToppingDecorator(Drink drink){
         this.drink= drink;
     }
