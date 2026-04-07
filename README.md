@@ -10,8 +10,8 @@
 
 ## 🚀 Tính năng
 
-* Thêm / sửa / xóa món
-* Quản lý đơn hàng
+* Đăt trà sữa, thêm topping
+* Quản lý đơn hàng, kho
 * Giao diện đơn giản (Java Swing)
 
 ---
@@ -45,13 +45,16 @@ src/
  ├── doantrasua
      ├── main
  ├── model/
-      ├── Drinks
+      ├── Drink
       ├── Menu 
       ├── Order
-      ├── OrderItem
       ├── TraSuaSocola
       ├── TraSuaThaiXanh
       ├── TraSuaTruyenThong
+      ├── BanhPlan
+      ├── TranChau
+      ├── Inventory
+      ├── ToppingDecorator 
  └── controller/
 ```
 
@@ -61,4 +64,4 @@ src/
 
 * Hoài Nhân
 * Thế Vinh
-* Sang Hung
+* Sang Hùng
