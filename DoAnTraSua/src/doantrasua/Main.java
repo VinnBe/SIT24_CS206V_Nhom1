@@ -27,6 +27,9 @@ public class Main {
         Drink tstt = new TraSuaTruyenThong();
         Drink tstx = new TraSuaThaiXanh();
         tstx =new TranChau(tstx);
+        tstt =new TranChau(tstt);
+        Drink tsscl= new TraSuaSocola();
+        tsscl =new TranChau(tsscl);
         Order order= new Order();
         order.addItem(tstt);
         order.addItem(tstx);
