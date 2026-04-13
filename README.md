@@ -46,6 +46,7 @@ src/
      ├── main
  ├── model/
       ├── Drink
+      ├── Drinks
       ├── Menu 
       ├── Order
       ├── TraSuaSocola
@@ -54,7 +55,7 @@ src/
       ├── BanhPlan
       ├── TranChau
       ├── Inventory
-      ├── ToppingDecorator 
+      ├── Toppings
  └── controller/
 ```
 
