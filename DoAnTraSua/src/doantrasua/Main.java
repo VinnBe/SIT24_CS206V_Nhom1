@@ -26,14 +26,7 @@ public class Main {
         // TODO code application logic here
         Menu menu= new Menu();
         menu.hienThiMenu();
-<<<<<<< HEAD
-        Drink tstt = new TraSuaTruyenThong();
-        Drink tstx = new TraSuaThaiXanh();
-        tstx =new TranChau(tstx);
-        tstt =new TranChau(tstt);
-        Drink tsscl= new TraSuaSocola();
-        tsscl =new TranChau(tsscl);
-=======
+
         Toppings tc= new TranChau();
         Toppings bp=new BanhPlan();
         Drinks tstt = new TraSuaTruyenThong();
@@ -41,7 +34,6 @@ public class Main {
         Drinks tsscl2=new TraSuaSocola();
         Drinks tsscl3=new TraSuaSocola();
         Drinks tstx= new TraSuaThaiXanh();
->>>>>>> 30ef6e8 (update Main.java)
         Order order= new Order();
         order.addItem(tstt);
         order.addItem(tsscl);
