@@ -1,0 +1,35 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package model;
+
+/**
+ *
+ * @author nhan
+ */
+public class Drinks implements Drink {
+    String name;
+    double price;
+
+    public Drinks() {}
+    public double getPrice(){
+        return this.price;
+    }
+    public  String ten(){
+        return this.name;
+    }
+    public void themTopping(Toppings tp){
+      if (Inventory.useTopping(tp.ten())) {     // Nếu topping còn thì sẽ trả về true 
+            this.name +=" + "+  tp.ten();
+            this.price+=tp.getPrice();
+    } 
+    else {
+        // Không đủ topping thì ko thêm
+        System.out.println("Không đủ topping " + tp.ten() + " trong kho!");
+     }
+    };
+       public String toString(){
+             return this.name + ": "  + this.price + " VND";
+    }
+}

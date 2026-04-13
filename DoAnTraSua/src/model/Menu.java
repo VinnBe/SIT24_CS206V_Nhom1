@@ -9,8 +9,8 @@ package model;
  * @author nhan
  */
 public class Menu {
-    Drink[] drink = new Drink[3];
-    Drink[] topping = new Drink[2];
+    Drinks[] drink = new Drinks[3];             // tạo mảng chứa nước
+    Toppings[] topping = new Toppings[2];           // tạo mảng chứa topping
     public Menu(){
         drink[0]=new TraSuaTruyenThong();
         drink[1]=new TraSuaThaiXanh();
@@ -20,12 +20,12 @@ public class Menu {
     }
     public void hienThiMenu(){
         System.out.println("Menu nuoc uong siuuu ngonnn!!");
-        for ( Drink x : drink ){
-            System.out.println(x.ten() + " || Gia tien: " + x.gia() + " VND");
+        for ( Drinks x : drink ){
+            System.out.println(x.ten() + " || Gia tien: " + x.getPrice() + " VND");
         }
         System.out.println("Topping tu chon");
-        for (Drink tp :topping){
-            System.out.println(tp.ten() + " || Gia tien: " + tp.gia() + " VND");
+        for (Toppings tp :topping){
+            System.out.println(tp.ten() + " || Gia tien: " + tp.getPrice() + " VND");
        }
     }
 }

@@ -8,8 +8,6 @@ package model;
  *
  * @author nhan
  */
- public interface Drink {           //interface chung de boc Topping len Dink goc
-    double getPrice(); // giá tổng lại khi thêm topping
-    double gia();
-    String ten();
+ public interface Drink {           //interface để tạo mối quan hệ của class Drinks và class Toppings
+    double getPrice();         
 }   

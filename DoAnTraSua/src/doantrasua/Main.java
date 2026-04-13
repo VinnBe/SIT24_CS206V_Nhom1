@@ -5,8 +5,10 @@
 package doantrasua;
 import model.BanhPlan;
 import model.Drink;
+import model.Drinks;
 import model.Menu;
 import model.Order;
+import model.Toppings;
 import model.TraSuaSocola;
 import model.TraSuaThaiXanh;
 import model.TraSuaTruyenThong;
@@ -24,15 +26,29 @@ public class Main {
         // TODO code application logic here
         Menu menu= new Menu();
         menu.hienThiMenu();
+<<<<<<< HEAD
         Drink tstt = new TraSuaTruyenThong();
         Drink tstx = new TraSuaThaiXanh();
         tstx =new TranChau(tstx);
         tstt =new TranChau(tstt);
         Drink tsscl= new TraSuaSocola();
         tsscl =new TranChau(tsscl);
+=======
+        Toppings tc= new TranChau();
+        Toppings bp=new BanhPlan();
+        Drinks tstt = new TraSuaTruyenThong();
+        Drinks tsscl=new TraSuaSocola();
+        Drinks tsscl2=new TraSuaSocola();
+        Drinks tsscl3=new TraSuaSocola();
+        Drinks tstx= new TraSuaThaiXanh();
+>>>>>>> 30ef6e8 (update Main.java)
         Order order= new Order();
         order.addItem(tstt);
+        order.addItem(tsscl);
+        order.addItem(tsscl2);
+        order.addItem(tsscl3);
         order.addItem(tstx);
+        order.addItem(tc);
         order.getPrice();
         order.hienThiHoaDon();
     }

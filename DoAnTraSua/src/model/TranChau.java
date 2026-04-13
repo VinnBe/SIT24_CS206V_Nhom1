@@ -8,33 +8,9 @@ package model;
  *
  * @author nhan
  */
-public class TranChau extends ToppingDecorator{
-    double price=5000;
-    String name = "Tran Chau";
+public class TranChau extends Toppings{
     public TranChau(){
-    }
-    public TranChau(Drink drink){
-        super(drink);
-          if (!Inventory.useTopping("Tran Chau")) {
-              try{
-             throw new RuntimeException("Het nguyen lieu");
-             }
-             catch(RuntimeException tt){
-                    System.out.println("Het tran chau"); 
-             }
-        }
-    }
-    @Override
-     public String ten(){
-        return this.name;
-    }
-    public double gia(){
-        return this.price;
-    }
-    public double getPrice(){
-        return this.price + drink.gia() ;
-    }
-    public String toString(){
-        return drink.ten() + ": " + drink.getPrice() + " VND"   + " + " + this.ten() + ": " + this.price +" VND" ;
+        this.price = 5000;
+        this.name= "Tran Chau";
     }
 }

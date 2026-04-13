@@ -8,24 +8,9 @@ package model;
  *
  * @author nhan
  */
-public class TraSuaTruyenThong implements Drink {
-     String name ;
-    double price;
+public class TraSuaTruyenThong extends Drinks implements Drink {
     public TraSuaTruyenThong() {
         this.name="Tra sua truyen thong";
         this.price= 25000;
     }
-        @Override
-    public String ten(){
-           return this.name ; 
-    }
-    public double gia(){
-        return this.price;
-    }
-    public double getPrice(){
-        return this.price ;
-    }
-    public String toString(){
-             return this.name + ": "  + this.price + " VND";
-    }
-}
+}   
