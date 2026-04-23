@@ -33,15 +33,27 @@ public class Main {
         Drinks tsscl=new TraSuaSocola();
         Drinks tsscl2=new TraSuaSocola();
         Drinks tsscl3=new TraSuaSocola();
-        Drinks tstx= new TraSuaThaiXanh();
+       // Drinks tstx= new TraSuaThaiXanh();
         Order order= new Order();
-        order.addItem(tstt);
+       // order.addItem(tstt);
         order.addItem(tsscl);
         order.addItem(tsscl2);
         order.addItem(tsscl3);
-        order.addItem(tstx);
-        order.addItem(tc);
-        order.getPrice();
-        order.hienThiHoaDon();
+      //  order.addItem(tstx);
+      //  order.addItem(tc);
+       // order.getPrice();
+       // order.hienThiHoaDon();
+       // order.addItem(bp);
+          
+          order.addItem(tc);
+          order.addItem(bp);
+          order.getPrice();
+          order.hienThiHoaDon();
+          order.getPrice();
+          order.hienThiHoaDon();
+          order.addItem(bp);
+          order.addItem(tc);
+          order.getPrice();
+          order.hienThiHoaDon();
     }
 }

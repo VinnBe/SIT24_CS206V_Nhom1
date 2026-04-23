@@ -15,7 +15,7 @@ public class Order {
     List<Drink> item= new ArrayList<>();        //mảng chứa các vật phẩm
     Drinks drink;
     int soLuong=0;
-    double total=0;
+    
     public Order(){}
     public void addItem(Drinks drink){             // them nuoc uong vao       
         item.add((drink));
@@ -35,17 +35,18 @@ public class Order {
         for ( Drink x: item){                   
            System.out.println(x);
         }
-        System.out.println("Tong tien la: " + this.total + " VND");
+        System.out.println("Tong tien la: " + getPrice() + " VND");
         System.out.println("Cam on khach hang da tin tuong <3");
         }
     public double getPrice(){        // lấy tổng giá tiền
-       for( Drink x: item){
-           this.total+=x.getPrice();
+       double sum = 0;
+        for( Drink x: item){
+           sum +=x.getPrice();
        }
         if(this.soLuong >=5){
-            this.total = this.total - (10.0/100.0)*this.total;
+            sum = sum - 0.1 * sum;
             
        }
-       return this.total;
+       return sum;
    }
 }
