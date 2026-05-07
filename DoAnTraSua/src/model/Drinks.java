@@ -9,8 +9,8 @@ package model;
  * @author nhan
  */
 public class Drinks implements Drink {
-    String name;
-    double price;
+     String name;
+     double price;
 
     public Drinks() {}
     public double getPrice(){

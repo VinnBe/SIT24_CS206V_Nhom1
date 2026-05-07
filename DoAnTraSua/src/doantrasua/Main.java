@@ -33,7 +33,7 @@ public class Main {
         Drinks tsscl=new TraSuaSocola();
         Drinks tsscl2=new TraSuaSocola();
         Drinks tsscl3=new TraSuaSocola();
-       // Drinks tstx= new TraSuaThaiXanh();
+        //Drinks tstx= new TraSuaThaiXanh();
         Order order= new Order();
        // order.addItem(tstt);
         order.addItem(tsscl);
