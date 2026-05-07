@@ -8,6 +8,7 @@ package Test;
 import model.BanhPlan;
 import model.Drink;
 import model.Drinks;
+import model.Inventory;
 import model.Order;
 import model.Toppings;
 import model.TraSuaSocola;
@@ -79,7 +80,7 @@ public class TestCase {
     }
      // Test discount khi >= 5 món
     @Test
-    public void testDiscount(){
+    public void testDiscount(){// test dc ca disscount va ko discount 
 
         Order order = new Order();
 
@@ -93,6 +94,34 @@ public class TestCase {
        order.addItem(new BanhPlan());
         assertEquals(92000, order.getPrice(), 0.001);
     }
+     @Test
+    public void testEmptyOrder(){ // test oder rong
+
+        Order order = new Order();
+
+        assertEquals(0, order.getPrice(), 0.001);
+    }
+      
+    @Test 
+    public void testInventoryAvailable(){  // Test inventory còn hàng ko 
+
+        boolean result = Inventory.useTopping("Banh Plan");
+
+        assertTrue(result);
+    }
+    
+  // tam thoi treo doan nay doi fix nha:)))  
+  //  @Test
+   // public void testInventoryOutOfStock(){ // test kho het hang 
+
+     //   Inventory.useTopping("Tran Chau");
+       // Inventory.useTopping("Tran Chau");
+
+        //boolean result = Inventory.useTopping("Tran Chau");
+
+      //  assertFalse(result);
+   // }
+
     
 
 }

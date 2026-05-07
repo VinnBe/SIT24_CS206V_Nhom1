@@ -10,7 +10,7 @@ package model;
  */
 public class Inventory {
     public static final Toppings[] toppingNames = new Toppings[2]; // mang chứa nguyên liệu 
-    public static int[] soLuong = {10, 10}; // số lượng tương ứng
+    public static int[] soLuong = {5, 2}; // số lượng tương ứng
     public static boolean useTopping(String name) {
         toppingNames[0]= new TranChau();
         toppingNames[1]=new BanhPlan();
