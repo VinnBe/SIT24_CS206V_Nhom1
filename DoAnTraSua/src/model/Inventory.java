@@ -35,6 +35,16 @@ public class Inventory {
         }
         return false; // không tìm thấy topping
     }
+    public static void returnTopping(String name) {
+
+    for (int i = 0; i < toppingNames.length; i++) {
+
+        if (toppingNames[i].ten().equals(name)) {
+            soLuong[i]++;
+            return;
+        }
+    }
+}
     /**
      * Kiểm tra số lượng còn lại (dùng cho test)
      */

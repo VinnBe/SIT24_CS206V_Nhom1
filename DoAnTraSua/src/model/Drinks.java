@@ -14,6 +14,8 @@ public class Drinks implements Drink {
      String name;
      public double priceL,priceM, price;
      public String size;
+     public int mucDa=100;
+     public int mucDuong=100;
      public ArrayList<Toppings> dsTopping = new ArrayList<>();
     public Drinks() {}
     public double getPrice(){
@@ -21,6 +23,12 @@ public class Drinks implements Drink {
     }
     public  String ten(){
         return this.name;
+    }
+    public void setMucDa(int mucDa){
+        this.mucDa=mucDa;
+    }
+    public void setMucDuong(int mucDuong){
+        this.mucDuong=mucDuong;
     }
      public void setSize(String size){
         if(size.equals("M")){
@@ -36,6 +44,7 @@ public class Drinks implements Drink {
       if (Inventory.useTopping(tp.ten())) {     // Nếu topping còn thì sẽ trả về true 
             this.name +=" + "+  tp.ten();
             this.price+=tp.getPrice();
+            dsTopping.add(tp);
     } 
     else {
         // Không đủ topping thì ko thêm

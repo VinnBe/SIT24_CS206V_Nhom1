@@ -30,19 +30,19 @@ public class Main {
     public static void main(String[] args) {
         // TOMDO code application logic here
         //topping
-        TranChau tc= new TranChau();
-        HatThuyTinh htt= new HatThuyTinh();
-        BanhPlan bp=new BanhPlan();
-        ThachCuNang tcn= new ThachCuNang();
-        
-        TraSuaSocola tsscl= new TraSuaSocola();
-        tsscl.setSize("M");
-        tsscl.themTopping(tc);
-        Order order= new Order();
-        order.addItem(tsscl);
-        order.getPrice();
-        order.hienThiHoaDon();
-        //SwingUtilities.invokeLater(MainFrame::new);
+//        TranChau tc= new TranChau();
+//        HatThuyTinh htt= new HatThuyTinh();
+//        BanhPlan bp=new BanhPlan();
+//        ThachCuNang tcn= new ThachCuNang();
+//        
+//        TraSuaSocola tsscl= new TraSuaSocola();
+//        tsscl.setSize("M");
+//        tsscl.themTopping(tc);
+//        Order order= new Order();
+//        order.addItem(tsscl);
+//        order.getPrice();
+//        order.hienThiHoaDon();
+        SwingUtilities.invokeLater(MainFrame::new);
     }
 
 }

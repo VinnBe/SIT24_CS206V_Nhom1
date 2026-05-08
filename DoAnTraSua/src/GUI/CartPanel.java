@@ -132,6 +132,18 @@ public class CartPanel extends JPanel {
             }
         };
         clearBtn.addActionListener(e -> {
+             // hoàn topping
+            for (Drink d : order.item) {
+
+                if (d instanceof Drinks) {
+
+                     Drinks drink = (Drinks) d;
+
+                        for (Toppings tp : drink.dsTopping) {
+                         Inventory.returnTopping(tp.ten());
+                        }
+                }
+            }
             order.item.clear();
             order.soLuong = 0;
             refresh();
