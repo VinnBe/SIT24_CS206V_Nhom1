@@ -15,59 +15,55 @@ import model.Toppings;
  *
  * @author hung
  */
-public class OrderService {
-    private List<Drink> item = new ArrayList<>();
-    private int soLuong = 0; // chỉ đếm số món nước
 
-    // Thêm đồ uống
-    public void addItem(Drinks drink) {
-        item.add(drink);
-        this.soLuong++;
+
+public class OrderService {
+
+    // Thêm đồ uống vào list từ ngoài truyền vào
+    public boolean addDrink(List<Drink> items, Drinks drink) {
+        items.add(drink);
+        return true;
     }
 
     // Thêm topping — kiểm tra kho trước
-    public void addItem(Toppings tp) {
+    public boolean addTopping(List<Drink> items, Toppings tp) {
         if (Inventory.useTopping(tp.ten())) {
-            item.add(tp);
-        } else {
-            System.out.println("Khong du nguyen lieu : " + tp.ten());
+            items.add(tp);
+            return true;
         }
+        System.out.println("Khong du nguyen lieu: " + tp.ten());
+        return false;
+    }
+
+    // Đếm số món nước (không tính topping)
+    public int getSoLuong(List<Drink> items) {
+        int count = 0;
+        for (Drink x : items) {
+            if (x instanceof Drinks) count++;
+        }
+        return count;
     }
 
     // Tính tổng tiền, giảm 10% nếu từ 5 món nước trở lên
-    public double getPrice() {
+    public double getPrice(List<Drink> items) {
         double sum = 0;
-        for (Drink x : item) {
+        for (Drink x : items) {
             sum += x.getPrice();
         }
-        if (this.soLuong >= 5) {
+        if (getSoLuong(items) >= 5) {
             sum = sum - 0.1 * sum;
         }
         return sum;
     }
-     // In hóa đơn
-    public void hienThiHoaDon() {
+
+    // In hóa đơn
+    public void hienThiHoaDon(List<Drink> items) {
         System.out.println("Hoa don cua khach hang");
-        for (Drink x : item) {
+        for (Drink x : items) {
             System.out.println(x);
         }
-        System.out.println("Tong tien la: " + getPrice() + " VND");
+        System.out.println("Tong tien la: " + getPrice(items) + " VND");
         System.out.println("Cam on khach hang da tin tuong <3");
     }
-
-    // Getter dùng cho test
-    public List<Drink> getItem() {
-        return item;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    // Reset đơn hàng
-    public void reset() {
-        item.clear();
-        soLuong = 0;
-    }
-    
 }
+
