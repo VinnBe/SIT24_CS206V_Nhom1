@@ -9,20 +9,47 @@ package model;
  * @author nhan
  */
 public class Inventory {
-    public static final Toppings[] toppingNames = new Toppings[2]; // mang chứa nguyên liệu 
-    public static int[] soLuong = {5, 2}; // số lượng tương ứng
+        public static final Toppings[] toppingNames;
+    public static int[] soLuong = {2, 2};// số lượng tương ứng
+       static {  // Khởi tạo 1 lần duy nhất khi class được load
+        toppingNames = new Toppings[2];
+        toppingNames[0] = new TranChau();
+        toppingNames[1] = new BanhPlan();
+    }
+           /**
+     * Dùng 1 topping — trả về true nếu còn hàng, false nếu hết
+     */
     public static boolean useTopping(String name) {
-        toppingNames[0]= new TranChau();
-        toppingNames[1]=new BanhPlan();
-        for (int i = 0; i < toppingNames.length; i++) {  
-            if (toppingNames[i].ten().equals(name)) { // tìm tên nguyên liệu tương ứng
-                if (soLuong[i] <= 0){           // kiểm tra nếu số lượng của nguyên liệu tương ứng >=0 thì trả ra false
-                    return false;
+        for (int i = 0; i < toppingNames.length; i++) {
+            if (toppingNames[i].ten().equals(name)) {
+                if (soLuong[i] <= 0) {
+                    return false; // hết hàng
                 }
-                soLuong[i]--;                   // nếu >=0 thì số lượng -1 và trả ra 
+                soLuong[i]--; // trừ kho
                 return true;
             }
         }
-        return false;                      
+        return false; // không tìm thấy topping
     }
+    /**
+     * Kiểm tra số lượng còn lại (dùng cho test)
+     */
+    public static int getSoLuong(String name) {
+        for (int i = 0; i < toppingNames.length; i++) {
+            if (toppingNames[i].ten().equals(name)) {
+                return soLuong[i];
+            }
+        }
+        return -1; // không tìm thấy
+    }
+ 
+    /**
+     * Reset kho về mặc định (dùng cho test)
+     */
+    public static void reset() {
+        soLuong[0] = 2;
+        soLuong[1] = 2;
+    }
+
+
 }

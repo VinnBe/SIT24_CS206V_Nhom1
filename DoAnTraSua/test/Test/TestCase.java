@@ -5,6 +5,7 @@
 package Test;
 
 
+import Service.OrderService;
 import model.BanhPlan;
 import model.Drink;
 import model.Drinks;
@@ -17,6 +18,7 @@ import model.TraSuaTruyenThong;
 import model.TranChau;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 
 /**SS
@@ -26,101 +28,138 @@ import static org.junit.Assert.*;
 public class TestCase {
     
 
-        // Test tạo object trà sữa
+    private OrderService service;
+ 
+    // Chạy trước mỗi test — reset kho và đơn hàng về ban đầu
+    @Before
+    public void setUp() {
+        service = new OrderService();// tao don moi truoc moi test
+        Inventory.reset();
+    }
+ 
+    // =========================================================
+    // TEST THÊM MÓN NƯỚC
+    // =========================================================
+ 
+    // Thêm 1 món nước, kiểm tra giá đúng không
     @Test
-    public void testCreateMilkTea(){// test xem co tao dc object ts ko
-
-        TraSuaSocola ts = new TraSuaSocola();
-        TraSuaTruyenThong ts1= new TraSuaTruyenThong();
-        assertNotNull(ts1);
-        assertNotNull(ts);
+    public void testThemMotMonNuoc() {
+        service.addItem(new TraSuaSocola()); // 30000
+        assertEquals(30000, service.getPrice(), 0);
     }
+ 
+    // Thêm nhiều món nước, kiểm tra tổng tiền
     @Test
-    public void testPriceMilkTea(){
-
-    Drink socola = new TraSuaSocola();
-    Drink truyenthong = new TraSuaTruyenThong();
-    Drink thaixanh = new TraSuaThaiXanh();
-    
-    assertEquals(25000,thaixanh.getPrice(),0.001);// test price thaixanh 
-    assertEquals(25000,truyenthong.getPrice(),0.001);// test price ts tt
-    assertEquals(30000, socola.getPrice(), 0.001);// (value mong doi, value thuc te,sai so cho phep"trave kiur double))
-}   
+    public void testThemNhieuMonNuoc() {
+        service.addItem(new TraSuaTruyenThong()); // 25000
+        service.addItem(new TraSuaThaiXanh());    // 25000
+        service.addItem(new TraSuaSocola());      // 30000
+        assertEquals(80000, service.getPrice(), 0);
+    }
+        // Đơn rỗng thì giá = 0
     @Test
-    public void testPriceToppings(){
-        Toppings tc = new TranChau();
-        Toppings bpl = new BanhPlan();
-        
-      assertEquals(5000, tc.getPrice(), 0.001);
-      assertEquals(7000,bpl.getPrice(),0.001);
-    
+    public void testDonRong() {
+        assertEquals(0, service.getPrice(), 0);
     }
-     @Test
-    public void testAddTopping(){
-
-        Drinks thaixanh = new TraSuaThaiXanh();
-
-        thaixanh.themTopping(new TranChau());
-        thaixanh.themTopping(new BanhPlan());
-        
-
-        assertEquals(37000, thaixanh.getPrice(), 0.001);// tesst gia sau khi add them
-    
-    }
-     @Test
-    public void testOrderTotal(){
-
-        Order order = new Order();
-
-        order.addItem(new TraSuaSocola());
-        order.addItem(new TraSuaTruyenThong());
-        order.addItem(new TranChau());
-
-        assertEquals(60000, order.getPrice(), 0.001);
-    }
-     // Test discount khi >= 5 món
+ 
+    // =========================================================
+    // TEST GIẢM GIÁ
+    // =========================================================
+ 
+    // Mua đúng 5 món nước → giảm 10%
     @Test
-    public void testDiscount(){// test dc ca disscount va ko discount 
-
-        Order order = new Order();
-
-      //  for(int i = 0; i < 5; i++){
-        //    order.addItem(new TraSuaTruyenThong());
-      //  }
-       order.addItem(new TraSuaTruyenThong());
-       order.addItem(new TraSuaThaiXanh());
-       order.addItem(new TraSuaSocola());
-       order.addItem(new TranChau());
-       order.addItem(new BanhPlan());
-        assertEquals(92000, order.getPrice(), 0.001);
+    public void testGiamGiaDung5Mon() {
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TraSuaSocola()); // 30000
+        // tổng 150000 - 10% = 135000
+        assertEquals(135000, service.getPrice(), 0);
     }
-     @Test
-    public void testEmptyOrder(){ // test oder rong
-
-        Order order = new Order();
-
-        assertEquals(0, order.getPrice(), 0.001);
+    // Mua 4 món nước → không giảm giá
+    @Test
+    public void testKhongGiamGia4Mon() {
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TraSuaSocola()); // 30000
+        // tổng 120000, không giảm
+        assertEquals(120000, service.getPrice(), 0);
     }
-      
-    @Test 
-    public void testInventoryAvailable(){  // Test inventory còn hàng ko 
-
-        boolean result = Inventory.useTopping("Banh Plan");
-
-        assertTrue(result);
+ 
+    // Topping không được tính vào số món để giảm giá
+    @Test
+    public void testToppingKhongTinhVaoGiamGia() {
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TraSuaSocola()); // 30000
+        service.addItem(new TranChau());     // topping — không tính vào soLuong
+        // chỉ có 4 món nước → không giảm giá
+        // tổng = 120000 + 5000 = 125000
+        assertEquals(125000, service.getPrice(), 0);
     }
+// =========================================================
+    // TEST TOPPING
+    // =========================================================
+ 
+    // Thêm topping còn hàng thì thành công
+    @Test
+    public void testThemToppingConHang() {
+        service.addItem(new TranChau()); // kho còn 2
+        assertEquals(5000, service.getPrice(), 0);
+    }
+ 
+    // Thêm topping hết hàng thì không thêm được
+    @Test
+    public void testThemToppingHetHang() {
+        Inventory.soLuong[0] = 0; // đặt Trân Châu về 0
+        service.addItem(new TranChau()); // không được thêm
+        assertEquals(0, service.getPrice(), 0);
+    }
+// Thêm topping 2 lần khi kho chỉ còn 1
+    @Test
+    public void testThemToppingVuotKho() {
+        Inventory.soLuong[0] = 1; // Trân Châu chỉ còn 1
+        service.addItem(new TranChau()); // lần 1 — OK
+        service.addItem(new TranChau()); // lần 2 — không được
+        assertEquals(5000, service.getPrice(), 0); // chỉ tính 1 lần
+    }
+ 
+    // Thêm 2 loại topping khác nhau
+    @Test
+    public void testThemHaiLoaiTopping() {
+        service.addItem(new TranChau());  // 5000
+        service.addItem(new BanhPlan()); // 7000
+        assertEquals(12000, service.getPrice(), 0);
+    }
+    // =========================================================
+    // TEST RESET
+    // =========================================================
+ 
+    // Reset xong thì giá về 0
+    @Test
+    public void testResetDonHang() {
+        service.addItem(new TraSuaSocola());
+        service.addItem(new TranChau());
+        service.reset();
+        assertEquals(0, service.getPrice(), 0);
+    }
+ 
+    // Reset xong thì soLuong về 0
+    @Test
+    public void testResetSoLuong() {
+        service.addItem(new TraSuaSocola());
+        service.addItem(new TraSuaSocola());
+        service.reset();
+        assertEquals(0, service.getSoLuong());
+    }
+
+
     
-  // tam thoi treo doan nay doi fix nha:)))  
-  //  @Test
-   // public void testInventoryOutOfStock(){ // test kho het hang 
-
-     //   Inventory.useTopping("Tran Chau");
-       // Inventory.useTopping("Tran Chau");
-
-        //boolean result = Inventory.useTopping("Tran Chau");
-
-      //  assertFalse(result);
-   // }
+    
+  
 
     
 
