@@ -132,19 +132,7 @@ public class MenuPanel extends JPanel {
         lbl.setForeground(BROWN);
         banner.add(lbl);
 
-        for (Toppings tp : menu.topping) {
-            JLabel tag = new JLabel(tp.ten() + "  +"
-                + String.format("%,.0f", tp.getPrice()).replace(',', '.') + "\u0111");
-            tag.setFont(new Font("SansSerif", Font.PLAIN, 12));
-            tag.setForeground(new Color(140, 80, 20));
-            tag.setBorder(new CompoundBorder(
-                new LineBorder(GOLD, 1, true),
-                new EmptyBorder(3, 10, 3, 10)
-            ));
-            banner.add(tag);
-        }
-
-        JLabel disc = new JLabel("  Từ 5 ly giảm 10%");
+        JLabel disc = new JLabel("  Chỉ từ 5 ly giảm 10% ");
         disc.setFont(new Font("SansSerif", Font.BOLD, 12));
         disc.setForeground(RED_PRICE);
         banner.add(disc);
@@ -164,7 +152,8 @@ public class MenuPanel extends JPanel {
         JScrollPane scroll = new JScrollPane(grid);
         scroll.setBorder(null);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
         scroll.getVerticalScrollBar().setUnitIncrement(16);
         scroll.setBackground(BG);
         scroll.getViewport().setBackground(BG);
