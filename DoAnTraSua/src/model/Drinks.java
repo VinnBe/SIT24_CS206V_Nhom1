@@ -32,4 +32,11 @@ public class Drinks implements Drink {
        public String toString(){
              return this.name + ": "  + this.price + " VND";
     }
+       //
+       public Drinks copy() {
+    Drinks d = new Drinks();
+    d.name  = this.name;
+    d.price = this.price;
+    return d;
+    }
 }

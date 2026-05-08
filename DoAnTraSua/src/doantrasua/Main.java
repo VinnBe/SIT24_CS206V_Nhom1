@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package doantrasua;
+import GUI.MainFrame;
+import javax.swing.SwingUtilities;
 import model.BanhPlan;
 import model.Drink;
 import model.Drinks;
@@ -24,36 +26,39 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Menu menu= new Menu();
-        menu.hienThiMenu();
 
-        Toppings tc= new TranChau();
-        Toppings bp=new BanhPlan();
-        Drinks tstt = new TraSuaTruyenThong();
-        Drinks tsscl=new TraSuaSocola();
-        Drinks tsscl2=new TraSuaSocola();
-        Drinks tsscl3=new TraSuaSocola();
-        //Drinks tstx= new TraSuaThaiXanh();
-        Order order= new Order();
-       // order.addItem(tstt);
-        order.addItem(tsscl);
-        order.addItem(tsscl2);
-        order.addItem(tsscl3);
-      //  order.addItem(tstx);
-      //  order.addItem(tc);
-       // order.getPrice();
-       // order.hienThiHoaDon();
-       // order.addItem(bp);
-          
-          order.addItem(tc);
-          order.addItem(bp);
-          order.getPrice();
-          order.hienThiHoaDon();
-          order.getPrice();
-          order.hienThiHoaDon();
-          order.addItem(bp);
-          order.addItem(tc);
-          order.getPrice();
-          order.hienThiHoaDon();
+        SwingUtilities.invokeLater(MainFrame::new);
     }
+//        Menu menu= new Menu();
+//        menu.hienThiMenu();
+//
+//        Toppings tc= new TranChau();
+//        Toppings bp=new BanhPlan();
+//        Drinks tstt = new TraSuaTruyenThong();
+//        Drinks tsscl=new TraSuaSocola();
+//        Drinks tsscl2=new TraSuaSocola();
+//        Drinks tsscl3=new TraSuaSocola();
+//        //Drinks tstx= new TraSuaThaiXanh();
+//        Order order= new Order();
+//       // order.addItem(tstt);
+//        order.addItem(tsscl);
+//        order.addItem(tsscl2);
+//        order.addItem(tsscl3);
+//      //  order.addItem(tstx);
+//      //  order.addItem(tc);
+//       // order.getPrice();
+//       // order.hienThiHoaDon();
+//       // order.addItem(bp);
+//          
+//          order.addItem(tc);
+//          order.addItem(bp);
+//          order.getPrice();
+//          order.hienThiHoaDon();
+//          order.getPrice();
+//          order.hienThiHoaDon();
+//          order.addItem(bp);
+//          order.addItem(tc);
+//          order.getPrice();
+//          order.hienThiHoaDon();
+//    }
 }

@@ -12,10 +12,13 @@ import java.util.List;
  * @author nhan
  */
 public class Order {
-    List<Drink> item= new ArrayList<>();        //mảng chứa các vật phẩm
+    public List<Drink> item= new ArrayList<>();        //mảng chứa các vật phẩm
     Drinks drink;
-    int soLuong=0;
+    public int soLuong=0;
     
+    public List<Drink> getItems() {
+    return item;
+    }
     public Order(){}
     public void addItem(Drinks drink){             // them nuoc uong vao       
         item.add((drink));
