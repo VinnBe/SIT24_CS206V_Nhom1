@@ -26,7 +26,6 @@ public class Main {
         // TODO code application logic here
         Menu menu= new Menu();
         menu.hienThiMenu();
-
         Toppings tc= new TranChau();
         Toppings bp=new BanhPlan();
         Drinks tstt = new TraSuaTruyenThong();
