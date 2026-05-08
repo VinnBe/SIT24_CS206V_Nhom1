@@ -29,43 +29,6 @@ public class Main {
      */
     public static void main(String[] args) {
         // TOMDO code application logic here
-        //topping
-<<<<<<< HEAD
-//        TranChau tc= new TranChau();
-//        HatThuyTinh htt= new HatThuyTinh();
-//        BanhPlan bp=new BanhPlan();
-//        ThachCuNang tcn= new ThachCuNang();
-//        
-//        TraSuaSocola tsscl= new TraSuaSocola();
-//        tsscl.setSize("M");
-//        tsscl.themTopping(tc);
-//        Order order= new Order();
-//        order.addItem(tsscl);
-//        order.getPrice();
-//        order.hienThiHoaDon();
-=======
-        TranChau tc= new TranChau();
-        HatThuyTinh htt= new HatThuyTinh();
-        BanhPlan bp=new BanhPlan();
-        ThachCuNang tcn= new ThachCuNang();
-        
-        TraSuaSocola tsscl= new TraSuaSocola();
-        tsscl.setSize("M");
-        tsscl.themTopping(tc);
-        tsscl.themTopping(bp);
-        tsscl.themTopping(htt);
-        tsscl.themTopping(tcn);
-        
-        TraSuaThaiXanh tstx= new TraSuaThaiXanh();
-        tstx.setSize("L");
-        tstx.themTopping(tc);
-        
-        Order order= new Order();
-        order.addItem(tsscl);
-        order.addItem(tstx);
-        order.getPrice();
-        order.hienThiHoaDon();
->>>>>>> 5815784 (them service + testcase)
         SwingUtilities.invokeLater(MainFrame::new);
     }
 

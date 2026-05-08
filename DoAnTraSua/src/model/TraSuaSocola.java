@@ -10,7 +10,7 @@ package model;
  */
 public class TraSuaSocola extends Drinks implements Drink  {
     public TraSuaSocola(){
-        this.name="Tra sua socola";
+        this.name="Trà sữa socola";
         this.priceM=30000;
         this.priceL=37000;
     }

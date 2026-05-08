@@ -11,7 +11,7 @@ package model;
 public class ThachCuNang extends Toppings{
     public ThachCuNang(){
         this.price=5000;
-        this.name="Thach Cu Nang";
+        this.name="Thạch củ năng";
         this.donVi=" vien";
         this.soLuongDung=1;
     }

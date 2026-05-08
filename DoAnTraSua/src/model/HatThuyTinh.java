@@ -11,7 +11,7 @@ package model;
 public class HatThuyTinh extends Toppings{
     public HatThuyTinh(){
         this.price=5000; 
-        this.name="Hat Thuy Tinh";
+        this.name="Hạt thủy tinh";
         this.donVi="gram";
         this.soLuongDung=50;
     }

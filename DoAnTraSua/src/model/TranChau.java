@@ -11,7 +11,7 @@ package model;
 public class TranChau extends Toppings{
     public TranChau(){
         this.price = 5000;
-        this.name= "Tran Chau";
+        this.name= "Trân châu";
         this.donVi="gram";
         this.soLuongDung=50;
     }
