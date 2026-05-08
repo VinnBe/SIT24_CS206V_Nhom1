@@ -257,26 +257,23 @@ public class MenuPanel extends JPanel {
         nameLbl.setForeground(BROWN_DARK);
 
         JLabel priceLbl = new JLabel(
-            String.format("%,.0f\u0111", drink.getPrice()).replace(',', '.'),
+            String.format("M: %,.0f\u0111  |  L: %,.0f\u0111", drink.priceM, drink.priceL).replace(',', '.'),
             SwingConstants.CENTER);
         priceLbl.setFont(new Font("SansSerif", Font.BOLD, 16));
         priceLbl.setForeground(RED_PRICE);
 
-        JButton addBtn    = buildRoundBtn("+ Thêm vào giỏ", RED_BTN, Color.WHITE);
-        JButton toppingBtn = buildRoundBtn("Chọn Topping",  GOLD,    BROWN_DARK);
+        JButton orderBtn = buildRoundBtn("+ Chọn Size & Topping", RED_BTN, Color.WHITE);
 
-        addBtn.addActionListener(e -> handleAddDrink(drink));
-        toppingBtn.addActionListener(e ->
+        orderBtn.addActionListener(e ->
             new ToppingPanel(
                 (JFrame) SwingUtilities.getWindowAncestor(this),
                 drink, order, cartPanel
             )
         );
 
-        JPanel btnRow = new JPanel(new GridLayout(2, 1, 0, 6));
+        JPanel btnRow = new JPanel(new GridLayout(1, 1, 0, 6));
         btnRow.setOpaque(false);
-        btnRow.add(addBtn);
-        btnRow.add(toppingBtn);
+        btnRow.add(orderBtn);
 
         JPanel info = new JPanel(new GridLayout(3, 1, 0, 6));
         info.setOpaque(false);

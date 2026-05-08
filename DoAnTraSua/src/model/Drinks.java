@@ -10,8 +10,8 @@ package model;
  */
 public class Drinks implements Drink {
      String name;
-     double priceL,priceM, price;
-     String size;
+     public double priceL,priceM, price;
+     public String size;
     public Drinks() {}
     public double getPrice(){
         return this.price;
@@ -57,10 +57,13 @@ public class Drinks implements Drink {
              return this.name + ": "  + this.price + " VND" + "| Size: " + this.size;
     }
        //
-       public Drinks copy() {
+   public Drinks copy() {
     Drinks d = new Drinks();
-    d.name  = this.name;
-    d.price = this.price;
+    d.name   = this.name;
+    d.price  = this.price;
+    d.priceM = this.priceM;
+    d.priceL = this.priceL;
+    d.size   = this.size;
     return d;
-    }
+}
 }
