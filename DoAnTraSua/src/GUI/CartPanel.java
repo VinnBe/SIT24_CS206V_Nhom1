@@ -275,6 +275,19 @@ public class CartPanel extends JPanel {
             }
         };
         del.addActionListener(e -> {
+             // hoàn topping
+            for (Drink c : order.item) {
+
+            if (c instanceof Drinks) {
+
+            Drinks drink = (Drinks) c;
+
+            for (Toppings tp : drink.dsTopping) {
+                Inventory.returnTopping(tp.ten());
+            }
+        }
+    }
+
             order.item.remove(d);
             order.soLuong = Math.max(0, order.soLuong - 1);
             refresh();
