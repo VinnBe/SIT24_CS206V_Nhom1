@@ -10,8 +10,8 @@ package model;
  */
 public class Drinks implements Drink {
      String name;
-     double price;
-
+     double priceL,priceM, price;
+     String size;
     public Drinks() {}
     public double getPrice(){
         return this.price;
@@ -33,6 +33,16 @@ public class Drinks implements Drink {
         }
         return true;
     }
+     public void setSize(String size){
+        if(size.equals("M")){
+            this.size ="M";
+            this.price=this.priceM;
+        }
+        else if(size.equals("L")){
+            this.size="L";
+            this.price=this.priceL;
+        }
+     }
     public void themTopping(Toppings tp){
       if (Inventory.useTopping(tp.ten())) {     // Nếu topping còn thì sẽ trả về true 
             this.name +=" + "+  tp.ten();
@@ -44,7 +54,7 @@ public class Drinks implements Drink {
      }
     };
        public String toString(){
-             return this.name + ": "  + this.price + " VND";
+             return this.name + ": "  + this.price + " VND" + "| Size: " + this.size;
     }
        //
        public Drinks copy() {

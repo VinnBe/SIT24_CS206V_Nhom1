@@ -11,7 +11,8 @@ package model;
 public class TraSuaTruyenThong extends Drinks implements Drink {
     public TraSuaTruyenThong() {
         this.name="Tra sua truyen thong";
-        this.price= 25000;
+        this.priceM= 25000;
+        this.priceL=35000;
     }
     public boolean phaChe(){
         if(super.phaChe()){

@@ -8,9 +8,12 @@ import javax.swing.SwingUtilities;
 import model.BanhPlan;
 import model.Drink;
 import model.Drinks;
+import model.HatThuyTinh;
 import model.Menu;
 import model.Order;
+import model.ThachCuNang;
 import model.Toppings;
+import model.TraSuaMatCha;
 import model.TraSuaSocola;
 import model.TraSuaThaiXanh;
 import model.TraSuaTruyenThong;
@@ -25,70 +28,30 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-//        Menu menu= new Menu();
-//        menu.hienThiMenu();
-////        Toppings tc= new TranChau();
-////        Toppings bp=new BanhPlan();
-////        Drinks tstt = new TraSuaTruyenThong();
-//        Drinks tsscl=new TraSuaSocola();
-//       Drinks tsscl2=new TraSuaSocola();
-////        Drinks tsscl3=new TraSuaSocola();
-//        Drinks tstx= new TraSuaThaiXanh();
-//        Order order= new Order();
-//       // order.addItem(tstt);
-//        order.addItem(tsscl);
-//       order.addItem(tsscl2);
-////        order.addItem(tsscl3);
-//        order.addItem(tstx);
-//      //  order.addItem(tc);
-//       // order.getPrice();
-//       // order.hienThiHoaDon();
-//       // order.addItem(bp);
-////          
-////          order.addItem(tc);
-////          order.addItem(bp);
-////          order.getPrice();
-////          order.hienThiHoaDon();
-////          order.getPrice();
-////          order.hienThiHoaDon();
-////          order.addItem(bp);
-////          order.addItem(tc);
-//          order.getPrice();
-//          order.hienThiHoaDon();
-
-        SwingUtilities.invokeLater(MainFrame::new);
+        // TOMDO code application logic here
+        //topping
+        TranChau tc= new TranChau();
+        HatThuyTinh htt= new HatThuyTinh();
+        BanhPlan bp=new BanhPlan();
+        ThachCuNang tcn= new ThachCuNang();
+        
+        TraSuaSocola tsscl= new TraSuaSocola();
+        tsscl.setSize("M");
+        tsscl.themTopping(tc);
+        tsscl.themTopping(bp);
+        tsscl.themTopping(htt);
+        tsscl.themTopping(tcn);
+        
+        TraSuaThaiXanh tstx= new TraSuaThaiXanh();
+        tstx.setSize("L");
+        tstx.themTopping(tc);
+        
+        Order order= new Order();
+        order.addItem(tsscl);
+        order.addItem(tstx);
+        order.getPrice();
+        order.hienThiHoaDon();
+        //SwingUtilities.invokeLater(MainFrame::new);
     }
-//        Menu menu= new Menu();
-//        menu.hienThiMenu();
-//
-//        Toppings tc= new TranChau();
-//        Toppings bp=new BanhPlan();
-//        Drinks tstt = new TraSuaTruyenThong();
-//        Drinks tsscl=new TraSuaSocola();
-//        Drinks tsscl2=new TraSuaSocola();
-//        Drinks tsscl3=new TraSuaSocola();
-//        //Drinks tstx= new TraSuaThaiXanh();
-//        Order order= new Order();
-//       // order.addItem(tstt);
-//        order.addItem(tsscl);
-//        order.addItem(tsscl2);
-//        order.addItem(tsscl3);
-//      //  order.addItem(tstx);
-//      //  order.addItem(tc);
-//       // order.getPrice();
-//       // order.hienThiHoaDon();
-//       // order.addItem(bp);
-//          
-//          order.addItem(tc);
-//          order.addItem(bp);
-//          order.getPrice();
-//          order.hienThiHoaDon();
-//          order.getPrice();
-//          order.hienThiHoaDon();
-//          order.addItem(bp);
-//          order.addItem(tc);
-//          order.getPrice();
-//          order.hienThiHoaDon();
-//    }
+
 }

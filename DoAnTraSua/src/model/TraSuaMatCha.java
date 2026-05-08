@@ -8,23 +8,29 @@ package model;
  *
  * @author nhan
  */
-public class TraSuaThaiXanh extends Drinks implements Drink{
-    public TraSuaThaiXanh(){
-        this.name="Tra sua thai xanh";
-        this.priceM= 25000;
-        this.priceL=35000;
-    }      
+public class TraSuaMatCha extends Drinks implements Drink{
+    public TraSuaMatCha(){
+        this.name="Tra sua socola";
+        this.price=30000;
+        this.priceL=37000;
+    }
+    @Override
     public boolean phaChe(){
         if(super.phaChe()){
             if(Inventory.traSua<=0){
                 System.out.println("het tra sua");
                 return false;
             }
+            if(Inventory.matCha<=0){
+                System.out.println("Het socola");
+                return false;
+            }
             else{
                 System.out.println("Thanh cong");
-                 Inventory.da--;
+                Inventory.da--;
                 Inventory.duong--;
                 Inventory.traSua--;
+                Inventory.matCha--;
                 return true;
             }
         }
