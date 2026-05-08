@@ -9,8 +9,9 @@ package model;
  * @author nhan
  */
 public class Inventory {
-        public static final Toppings[] toppingNames;
+    public static final Toppings[] toppingNames;
     public static int[] soLuong = {2, 2};// số lượng tương ứng
+    public static int da = 3, duong =3, traSua=3, socola=2;
        static {  // Khởi tạo 1 lần duy nhất khi class được load
         toppingNames = new Toppings[2];
         toppingNames[0] = new TranChau();

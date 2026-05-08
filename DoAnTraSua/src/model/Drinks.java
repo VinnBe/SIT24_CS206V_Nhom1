@@ -19,6 +19,20 @@ public class Drinks implements Drink {
     public  String ten(){
         return this.name;
     }
+    public boolean phaChe() {
+
+        // kiểm tra nguyên liệu
+
+        if (Inventory.da <= 0) {
+            System.out.println("Hết đá");
+            return false;
+        }
+        if (Inventory.duong <= 0) {
+            System.out.println("Hết đường");
+            return false;
+        }
+        return true;
+    }
     public void themTopping(Toppings tp){
       if (Inventory.useTopping(tp.ten())) {     // Nếu topping còn thì sẽ trả về true 
             this.name +=" + "+  tp.ten();

@@ -13,4 +13,21 @@ public class TraSuaTruyenThong extends Drinks implements Drink {
         this.name="Tra sua truyen thong";
         this.price= 25000;
     }
+    public boolean phaChe(){
+        if(super.phaChe()){
+            if(Inventory.traSua<=0){
+                System.out.println("het tra sua");
+                return false;
+            }
+            else{
+                System.out.println("Thanh cong");
+                 Inventory.da--;
+                Inventory.duong--;
+                Inventory.traSua--;
+                return true;
+            }
+        }
+        else {
+            return false;}
+        }
 }   

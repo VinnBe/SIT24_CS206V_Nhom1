@@ -18,8 +18,10 @@ public class Order {
     
     public Order(){}
     public void addItem(Drinks drink){             // them nuoc uong vao       
+        if(drink.phaChe()){
         item.add((drink));
         this.soLuong+=1;
+        }
     }
     public void addItem(Toppings tp){             //  goi topping khong 
        if(Inventory.useTopping(tp.ten())){
