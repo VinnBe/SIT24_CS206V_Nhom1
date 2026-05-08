@@ -14,21 +14,4 @@ public class TraSuaThaiXanh extends Drinks implements Drink{
         this.priceM= 25000;
         this.priceL=35000;
     }      
-    public boolean phaChe(){
-        if(super.phaChe()){
-            if(Inventory.traSua<=0){
-                System.out.println("het tra sua");
-                return false;
-            }
-            else{
-                System.out.println("Thanh cong");
-                 Inventory.da--;
-                Inventory.duong--;
-                Inventory.traSua--;
-                return true;
-            }
-        }
-        else {
-            return false;}
-        }
 }

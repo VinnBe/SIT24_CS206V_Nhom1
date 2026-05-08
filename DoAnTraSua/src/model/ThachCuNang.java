@@ -12,5 +12,7 @@ public class ThachCuNang extends Toppings{
     public ThachCuNang(){
         this.price=5000;
         this.name="Thach Cu Nang";
+        this.donVi=" vien";
+        this.soLuongDung=1;
     }
 }

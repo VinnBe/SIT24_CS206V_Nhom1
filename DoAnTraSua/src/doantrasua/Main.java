@@ -38,17 +38,8 @@ public class Main {
         TraSuaSocola tsscl= new TraSuaSocola();
         tsscl.setSize("M");
         tsscl.themTopping(tc);
-        tsscl.themTopping(bp);
-        tsscl.themTopping(htt);
-        tsscl.themTopping(tcn);
-        
-        TraSuaThaiXanh tstx= new TraSuaThaiXanh();
-        tstx.setSize("L");
-        tstx.themTopping(tc);
-        
         Order order= new Order();
         order.addItem(tsscl);
-        order.addItem(tstx);
         order.getPrice();
         order.hienThiHoaDon();
         //SwingUtilities.invokeLater(MainFrame::new);

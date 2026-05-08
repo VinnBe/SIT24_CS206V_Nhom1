@@ -12,5 +12,7 @@ public class BanhPlan extends Toppings {
     public BanhPlan(){
         this.price = 7000;
         this.name="Banh Plan";
+        this.donVi="cai";
+        this.soLuongDung=1;
     }
 }

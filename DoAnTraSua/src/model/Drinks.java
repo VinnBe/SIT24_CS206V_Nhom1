@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author nhan
@@ -12,26 +14,13 @@ public class Drinks implements Drink {
      String name;
      public double priceL,priceM, price;
      public String size;
+     public ArrayList<Toppings> dsTopping = new ArrayList<>();
     public Drinks() {}
     public double getPrice(){
         return this.price;
     }
     public  String ten(){
         return this.name;
-    }
-    public boolean phaChe() {
-
-        // kiểm tra nguyên liệu
-
-        if (Inventory.da <= 0) {
-            System.out.println("Hết đá");
-            return false;
-        }
-        if (Inventory.duong <= 0) {
-            System.out.println("Hết đường");
-            return false;
-        }
-        return true;
     }
      public void setSize(String size){
         if(size.equals("M")){
@@ -54,7 +43,7 @@ public class Drinks implements Drink {
      }
     };
        public String toString(){
-             return this.name + ": "  + this.price + " VND" + "| Size: " + this.size;
+             return this.name + ": "  + this.price + " VND" + " | Size: " + this.size;
     }
        //
    public Drinks copy() {

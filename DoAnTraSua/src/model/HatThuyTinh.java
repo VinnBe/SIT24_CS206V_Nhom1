@@ -10,7 +10,9 @@ package model;
  */
 public class HatThuyTinh extends Toppings{
     public HatThuyTinh(){
-        this.price=5000;
+        this.price=5000; 
         this.name="Hat Thuy Tinh";
+        this.donVi="gram";
+        this.soLuongDung=50;
     }
 }

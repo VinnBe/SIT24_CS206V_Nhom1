@@ -12,5 +12,7 @@ public class TranChauTrang extends Toppings {
     public TranChauTrang(){
         this.price=5000;
         this.name="Tran Chau Trang";
+        this.donVi="gram";
+        this.soLuongDung=50;
     }
 }

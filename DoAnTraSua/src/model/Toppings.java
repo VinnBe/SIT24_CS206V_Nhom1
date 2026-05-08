@@ -11,6 +11,8 @@ package model;
 public class Toppings implements Drink{            
     double price;
     String name;
+    String donVi;
+    double soLuongDung;
     public Toppings(){}
     public double getPrice(){            // lấy giá topping 
         return this.price;
