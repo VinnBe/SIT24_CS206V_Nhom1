@@ -148,12 +148,21 @@ public class Receiptdialog extends JDialog {
         body.add(tableHeader());
         body.add(solid());
 
-        int idx = 1;
+// Gộp các món trùng tên
+    java.util.LinkedHashMap<String, double[]> grouped = new java.util.LinkedHashMap<>();
         for (Drink d : order.item) {
-            body.add(itemRow(idx++, getName(d), d.getPrice()));
+        String key = getName(d);
+        if (grouped.containsKey(key)) {
+            grouped.get(key)[0] += d.getPrice();
+            grouped.get(key)[1]++;
+        } else {
+            grouped.put(key, new double[]{d.getPrice(), 1});
         }
-        body.add(solid());
-
+    }
+    for (java.util.Map.Entry<String, double[]> entry : grouped.entrySet()) {
+        body.add(itemRow(entry.getKey(), entry.getValue()[0], (int) entry.getValue()[1]));
+    }
+    body.add(solid());
         double sub = 0;
         for (Drink d : order.item) sub += d.getPrice();
         boolean disc = order.soLuong >= 5;
@@ -223,33 +232,38 @@ public class Receiptdialog extends JDialog {
         return p;
     }
 
-    private JPanel itemRow(int idx, String name, double price) {
-        JPanel w = new JPanel();
-        w.setLayout(new BoxLayout(w, BoxLayout.Y_AXIS));
-        w.setBackground(PAPER_BG);
+    private JPanel itemRow(String name, double totalPrice, int qty) {
+    JPanel w = new JPanel(new BorderLayout(8, 0));
+    w.setBackground(PAPER_BG);
+    w.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
+    w.setBorder(new EmptyBorder(3, 0, 3, 0));
 
-        // Tên món dùng JTextArea để tự wrap
-        JTextArea ta = new JTextArea(idx + ") " + name);
-        ta.setFont(plainF(12)); ta.setForeground(INK); ta.setBackground(PAPER_BG);
-        ta.setEditable(false); ta.setFocusable(false);
-        ta.setLineWrap(true); ta.setWrapStyleWord(true);
-        ta.setBorder(null); ta.setAlignmentX(Component.LEFT_ALIGNMENT);
+    // Tên hàng — bên TRÁI, thẳng cột TEN HANG
+    JLabel lName = new JLabel(name);
+    lName.setFont(plainF(12));
+    lName.setForeground(INK);
 
-        JPanel numRow = new JPanel(new BorderLayout(8, 0));
-        numRow.setBackground(PAPER_BG);
-        numRow.setAlignmentX(Component.LEFT_ALIGNMENT);
-        numRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 16));
-        JLabel lQ = new JLabel("  1"), lP = new JLabel(fmtVND(price));
-        lQ.setFont(plainF(12)); lP.setFont(plainF(12));
-        lQ.setForeground(INK_MUTED); lP.setForeground(INK);
-        numRow.add(lQ, BorderLayout.WEST);
-        numRow.add(lP, BorderLayout.EAST);
+    // SL — giữa
+    JLabel lQ = new JLabel(String.valueOf(qty), SwingConstants.CENTER);
+    lQ.setFont(plainF(12));
+    lQ.setForeground(INK_MUTED);
+    lQ.setPreferredSize(new Dimension(30, 20));
 
-        w.add(ta);
-        w.add(numRow);
-        w.add(Box.createVerticalStrut(4));
-        return w;
-    }
+    // T.TIEN — bên PHẢI
+    JLabel lP = new JLabel(fmtVND(totalPrice), SwingConstants.RIGHT);
+    lP.setFont(plainF(12));
+    lP.setForeground(INK);
+    lP.setPreferredSize(new Dimension(65, 20));
+
+    JPanel right = new JPanel(new BorderLayout(4, 0));
+    right.setBackground(PAPER_BG);
+    right.add(lQ, BorderLayout.WEST);
+    right.add(lP, BorderLayout.EAST);
+
+    w.add(lName, BorderLayout.CENTER);
+    w.add(right, BorderLayout.EAST);
+    return w;
+}
 
     private JPanel grandRow(double grand) {
         JPanel p = new JPanel(new BorderLayout(8, 0));

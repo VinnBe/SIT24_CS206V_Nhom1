@@ -20,7 +20,7 @@ public class ToppingPanel extends JDialog {
         // Lấy toàn bộ topping từ Inventory (không hard-code)
         Toppings[] toppings = Inventory.toppingNames;
 
-        int dialogH = 130 + toppings.length * 34 + 100;
+        int dialogH = 130 + toppings.length * 34 + 160;
         setLayout(new BorderLayout());
         setSize(360, dialogH);
         setLocationRelativeTo(parent);
@@ -125,6 +125,48 @@ public class ToppingPanel extends JDialog {
             body.add(Box.createVerticalStrut(4));
         }
 
+        // Divider trước số lượng
+        body.add(Box.createVerticalStrut(10));
+        JSeparator sep2 = new JSeparator();
+        sep2.setForeground(BORDER_C);
+        sep2.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
+        sep2.setAlignmentX(LEFT_ALIGNMENT);
+        body.add(sep2);
+        body.add(Box.createVerticalStrut(10));
+
+        // ── Chọn số lượng ────────────────────────────────────
+        JLabel qtyLabel = new JLabel("\uD83D\uDD22  Số lượng:");
+        qtyLabel.setFont(new Font("SansSerif", Font.BOLD, 13));
+        qtyLabel.setForeground(BROWN);
+        qtyLabel.setAlignmentX(LEFT_ALIGNMENT);
+        body.add(qtyLabel);
+        body.add(Box.createVerticalStrut(6));
+
+        final int[] qty = {1};
+
+        JButton btnMinus = styledQtyBtn("\u2212");
+        JLabel  qtyNum   = new JLabel("1", SwingConstants.CENTER);
+        qtyNum.setFont(new Font("SansSerif", Font.BOLD, 16));
+        qtyNum.setForeground(BROWN_DARK);
+        qtyNum.setPreferredSize(new Dimension(36, 32));
+        JButton btnPlus  = styledQtyBtn("+");
+
+        btnMinus.addActionListener(e -> {
+            if (qty[0] > 1) { qty[0]--; qtyNum.setText(String.valueOf(qty[0])); }
+        });
+        btnPlus.addActionListener(e -> {
+            qty[0]++; qtyNum.setText(String.valueOf(qty[0]));
+        });
+
+        JPanel qtyRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 4, 0));
+        qtyRow.setBackground(BG);
+        qtyRow.setAlignmentX(LEFT_ALIGNMENT);
+        qtyRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
+        qtyRow.add(btnMinus);
+        qtyRow.add(qtyNum);
+        qtyRow.add(btnPlus);
+        body.add(qtyRow);
+
         // ── Footer: nút bấm ─────────────────────────────────
         JPanel btnPanel = new JPanel(new GridLayout(1, 2, 10, 0));
         btnPanel.setBackground(new Color(245, 240, 230));
@@ -134,24 +176,26 @@ public class ToppingPanel extends JDialog {
         JButton skipBtn    = styledBtn("Bỏ qua topping", new Color(235, 220, 190), BROWN);
 
         confirmBtn.addActionListener(e -> {
-            Drinks copy = drink.copy();
-            // Set size trước
-            copy.setSize(rbL.isSelected() ? "L" : "M");
-            // Thêm topping được chọn
-            for (int i = 0; i < toppings.length; i++) {
-                if (boxes[i].isSelected()) {
-                    copy.themTopping(toppings[i]);
+            for (int q = 0; q < qty[0]; q++) {
+                Drinks copy = drink.copy();
+                copy.setSize(rbL.isSelected() ? "L" : "M");
+                for (int i = 0; i < toppings.length; i++) {
+                    if (boxes[i].isSelected()) {
+                        copy.themTopping(toppings[i]);
+                    }
                 }
+                order.addItem(copy);
             }
-            order.addItem(copy);
             refreshCart(cartPanel);
             dispose();
         });
 
         skipBtn.addActionListener(e -> {
-            Drinks copy = drink.copy();
-            copy.setSize(rbL.isSelected() ? "L" : "M");
-            order.addItem(copy);
+            for (int q = 0; q < qty[0]; q++) {
+                Drinks copy = drink.copy();
+                copy.setSize(rbL.isSelected() ? "L" : "M");
+                order.addItem(copy);
+            }
             refreshCart(cartPanel);
             dispose();
         });
@@ -181,6 +225,31 @@ public class ToppingPanel extends JDialog {
             cartPanel.setVisible(true);
             SwingUtilities.getWindowAncestor(cartPanel).revalidate();
         }
+    }
+
+    private JButton styledQtyBtn(String text) {
+        return new JButton(text) {
+            boolean hov = false;
+            {
+                setContentAreaFilled(false); setBorderPainted(false); setFocusPainted(false);
+                setFont(new Font("SansSerif", Font.BOLD, 18));
+                setForeground(BROWN_DARK);
+                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                setPreferredSize(new Dimension(34, 34));
+                addMouseListener(new MouseAdapter() {
+                    public void mouseEntered(MouseEvent e) { hov = true;  repaint(); }
+                    public void mouseExited (MouseEvent e) { hov = false; repaint(); }
+                });
+            }
+            @Override protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(hov ? new Color(210, 185, 140) : new Color(230, 210, 170));
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                super.paintComponent(g);
+                g2.dispose();
+            }
+        };
     }
 
     private JButton styledBtn(String text, Color bg, Color fg) {

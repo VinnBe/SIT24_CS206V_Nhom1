@@ -142,20 +142,7 @@ public class MainFrame extends JFrame {
         lbl.setFont(new Font("SansSerif", Font.PLAIN, 12));
         lbl.setForeground(new Color(160, 120, 70));
 
-        JLabel inv = new JLabel(
-            "Kho — Đá: " + Inventory.da
-            + "  Đường: " + Inventory.duong
-            + "  Trà sữa: " + Inventory.traSua
-            + "  |  Trân Châu: " + Inventory.soLuong[0]
-            + "  Bánh Flan: " + Inventory.soLuong[1]
-            + "  Hạt Thủy Tinh: " + Inventory.soLuong[2]
-            + "  Thạch: " + Inventory.soLuong[3]
-            + "  TC Trắng: " + Inventory.soLuong[4]);
-        inv.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        inv.setForeground(new Color(160, 120, 70));
-
         footer.add(lbl, BorderLayout.WEST);
-        footer.add(inv, BorderLayout.EAST);
         add(footer, BorderLayout.SOUTH);
     }
 
