@@ -61,8 +61,12 @@ public class Inventory {
      * Reset kho về mặc định (dùng cho test)
      */
     public static void reset() {
-        soLuong[0] = 2;
+        soLuong[0] = 50 ;
         soLuong[1] = 2;
+        soLuong[2]=1000;
+        soLuong[3]=2;
+        soLuong[4]=1000;
+        
     }
 
 
