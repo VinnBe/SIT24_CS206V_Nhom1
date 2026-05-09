@@ -33,12 +33,13 @@ public class MenuPanel extends JPanel {
     private static final String[] DRINK_IMAGES = {
         "/resources/trasua_truyenthong.jpg",
         "/resources/trasua_thaixanh.png",
-        "/resources/trasua_socola.jpg"
+        "/resources/trasua_socola.jpg",
+        "/resources/trasua_matcha.jpg"
     };
 
-    private static final String[] DRINK_EMOJI  = { "\uD83E\uDD64", "\uD83C\uDF75", "\uD83C\uDF6B" };
+    private static final String[] DRINK_EMOJI  = { "\uD83E\uDD64", "\uD83C\uDF75", "\uD83C\uDF6B", "\uD83C\uDF35" };
     private static final Color[]  DRINK_COLORS = {
-        new Color(0xFFF3E0), new Color(0xE8F5E9), new Color(0xFCE4EC)
+        new Color(0xFFF3E0), new Color(0xE8F5E9), new Color(0xFCE4EC), new Color(0xE8F5E9)
     };
 
     public MenuPanel(model.Menu menu, Order order, CartPanel cartPanel) {

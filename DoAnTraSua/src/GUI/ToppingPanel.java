@@ -165,6 +165,8 @@ public class ToppingPanel extends JDialog {
         scroll.setBackground(BG);
         scroll.getViewport().setBackground(BG);
         scroll.getVerticalScrollBar().setUnitIncrement(8);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
         add(header,   BorderLayout.NORTH);
         add(scroll,   BorderLayout.CENTER);

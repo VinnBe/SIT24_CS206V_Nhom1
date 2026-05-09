@@ -9,12 +9,13 @@ package model;
  * @author nhan
  */
 public class Menu {
-    public Drinks[] drink = new Drinks[3];             // tạo mảng chứa nước
+    public Drinks[] drink = new Drinks[4];             // tạo mảng chứa nước
     public Toppings[] topping = new Toppings[2];           // tạo mảng chứa topping
     public Menu(){
         drink[0]=new TraSuaTruyenThong();
         drink[1]=new TraSuaThaiXanh();
         drink[2]=new TraSuaSocola();
+        drink[3]=new TraSuaMatCha();
         topping[0]= new TranChau();
         topping[1]=new BanhPlan();
     }

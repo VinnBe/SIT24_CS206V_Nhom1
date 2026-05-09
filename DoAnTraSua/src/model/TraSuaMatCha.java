@@ -11,7 +11,7 @@ package model;
 public class TraSuaMatCha extends Drinks implements Drink{
     public TraSuaMatCha(){
         this.name="Trà sữa matcha";
-        this.price=30000;
+        this.priceM=30000;
         this.priceL=37000;
     }
 }
