@@ -77,6 +77,8 @@ public class Drinks implements Drink {
     d.priceM = this.priceM;
     d.priceL = this.priceL;
     d.size   = this.size;
+    d.mucDuong = this.mucDuong; 
+    d.mucDa    = this.mucDa;  
     return d;
 }
 }

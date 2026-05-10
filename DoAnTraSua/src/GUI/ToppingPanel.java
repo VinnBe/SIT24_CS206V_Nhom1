@@ -20,7 +20,7 @@ public class ToppingPanel extends JDialog {
         // Lấy toàn bộ topping từ Inventory (không hard-code)
         Toppings[] toppings = Inventory.getToppings();
 
-        int dialogH = 130 + toppings.length * 34 + 160;
+        int dialogH = 130 + toppings.length * 34 + 290;
         setLayout(new BorderLayout());
         setSize(360, dialogH);
         setLocationRelativeTo(parent);
@@ -124,7 +124,125 @@ public class ToppingPanel extends JDialog {
             body.add(boxes[i]);
             body.add(Box.createVerticalStrut(4));
         }
+    // ── Chọn mức đường & đá (2 cột) ────────────────────
+    body.add(Box.createVerticalStrut(10));
+    JSeparator sepDuong = new JSeparator();
+    sepDuong.setForeground(BORDER_C);
+    sepDuong.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
+    sepDuong.setAlignmentX(LEFT_ALIGNMENT);
+    body.add(sepDuong);
+    body.add(Box.createVerticalStrut(10));
 
+    String[] mucDuongOpts = {"100%", "70%", "50%", "0%"};
+    int[]    mucDuongVals = {100, 70, 50, 0};
+    String[] mucDaOpts    = {"Tiêu chuẩn", "Ít đá", "Không đá"};
+    int[]    mucDaVals    = {100, 50, 0};
+
+    final int[] selectedDuong = {0}; // index mặc định
+    final int[] selectedDa    = {0};
+
+    // Header 2 cột
+    JPanel colHeader = new JPanel(new GridLayout(1, 2, 10, 0));
+    colHeader.setOpaque(false);
+    colHeader.setAlignmentX(LEFT_ALIGNMENT);
+    colHeader.setMaximumSize(new Dimension(Integer.MAX_VALUE, 22));
+    JLabel lbDuong = new JLabel("🍬  Mức đường:");
+    lbDuong.setFont(new Font("SansSerif", Font.BOLD, 13));
+    lbDuong.setForeground(BROWN);
+    JLabel lbDa = new JLabel("🧊  Mức đá:");
+    lbDa.setFont(new Font("SansSerif", Font.BOLD, 13));
+    lbDa.setForeground(BROWN);
+    colHeader.add(lbDuong);
+    colHeader.add(lbDa);
+    body.add(colHeader);
+    body.add(Box.createVerticalStrut(6));
+
+    // Panel chứa 2 cột nút
+    JPanel colPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+    colPanel.setOpaque(false);
+    colPanel.setAlignmentX(LEFT_ALIGNMENT);
+    colPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE,
+        Math.max(mucDuongOpts.length, mucDaOpts.length) * 36 + 4));
+
+    // Cột trái: đường
+    JPanel colDuong = new JPanel();
+    colDuong.setLayout(new BoxLayout(colDuong, BoxLayout.Y_AXIS));
+    colDuong.setOpaque(false);
+    JButton[] btnsDuong = new JButton[mucDuongOpts.length];
+    for (int i = 0; i < mucDuongOpts.length; i++) {
+        final int idx = i;
+        btnsDuong[i] = new JButton(mucDuongOpts[i]) {
+            boolean hov = false;
+            { setContentAreaFilled(false); setBorderPainted(false); setFocusPainted(false);
+            setFont(new Font("SansSerif", Font.PLAIN, 12));
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            setAlignmentX(LEFT_ALIGNMENT);
+            setMaximumSize(new Dimension(Integer.MAX_VALUE, 32));
+            addMouseListener(new MouseAdapter() {
+                  public void mouseEntered(MouseEvent e) { hov = true;  repaint(); }
+                  public void mouseExited (MouseEvent e) { hov = false; repaint(); }
+            }); }
+        @Override protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            boolean sel = selectedDuong[0] == idx;
+            g2.setColor(sel ? BROWN : (hov ? new Color(220, 200, 165) : new Color(235, 220, 195)));
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+            setForeground(sel ? new Color(255, 220, 120) : BROWN_DARK);
+            super.paintComponent(g);
+            g2.dispose();
+        }
+    };
+    final int fi = i;
+    btnsDuong[i].addActionListener(e -> {
+        selectedDuong[0] = fi;
+        for (JButton b : btnsDuong) b.repaint();
+    });
+    colDuong.add(btnsDuong[i]);
+    colDuong.add(Box.createVerticalStrut(4));
+}
+
+// Cột phải: đá
+JPanel colDa = new JPanel();
+colDa.setLayout(new BoxLayout(colDa, BoxLayout.Y_AXIS));
+colDa.setOpaque(false);
+JButton[] btnsDa = new JButton[mucDaOpts.length];
+for (int i = 0; i < mucDaOpts.length; i++) {
+    final int idx = i;
+    btnsDa[i] = new JButton(mucDaOpts[i]) {
+        boolean hov = false;
+        { setContentAreaFilled(false); setBorderPainted(false); setFocusPainted(false);
+          setFont(new Font("SansSerif", Font.PLAIN, 12));
+          setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+          setAlignmentX(LEFT_ALIGNMENT);
+          setMaximumSize(new Dimension(Integer.MAX_VALUE, 32));
+          addMouseListener(new MouseAdapter() {
+              public void mouseEntered(MouseEvent e) { hov = true;  repaint(); }
+              public void mouseExited (MouseEvent e) { hov = false; repaint(); }
+          }); }
+        @Override protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            boolean sel = selectedDa[0] == idx;
+            g2.setColor(sel ? BROWN : (hov ? new Color(220, 200, 165) : new Color(235, 220, 195)));
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+            setForeground(sel ? new Color(255, 220, 120) : BROWN_DARK);
+            super.paintComponent(g);
+            g2.dispose();
+        }
+    };
+    final int fi = i;
+    btnsDa[i].addActionListener(e -> {
+        selectedDa[0] = fi;
+        for (JButton b : btnsDa) b.repaint();
+    });
+    colDa.add(btnsDa[i]);
+    colDa.add(Box.createVerticalStrut(4));
+}
+
+colPanel.add(colDuong);
+colPanel.add(colDa);
+body.add(colPanel);
         // Divider trước số lượng
         body.add(Box.createVerticalStrut(10));
         JSeparator sep2 = new JSeparator();
@@ -179,6 +297,8 @@ public class ToppingPanel extends JDialog {
             for (int q = 0; q < qty[0]; q++) {
                 Drinks copy = drink.copy();
                 copy.setSize(rbL.isSelected() ? "L" : "M");
+                copy.setMucDuong(mucDuongVals[selectedDuong[0]]);  // thêm vào đây
+                copy.setMucDa(mucDaVals[selectedDa[0]]);  
                 for (int i = 0; i < toppings.length; i++) {
                     if (boxes[i].isSelected()) {
                         copy.themTopping(toppings[i]);
@@ -193,7 +313,7 @@ public class ToppingPanel extends JDialog {
         skipBtn.addActionListener(e -> {
             for (int q = 0; q < qty[0]; q++) {
                 Drinks copy = drink.copy();
-                copy.setSize(rbL.isSelected() ? "L" : "M");
+                copy.setSize(rbL.isSelected() ? "L" : "M");      
                 order.addItem(copy);
             }
             refreshCart(cartPanel);

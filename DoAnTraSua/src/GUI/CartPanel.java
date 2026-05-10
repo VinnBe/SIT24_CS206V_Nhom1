@@ -302,17 +302,16 @@ public class CartPanel extends JPanel {
     // ══════════════════════════════════════════════════════════
     //  BƯỚC 1: HÓA ĐƠN – popup giấy nhiệt
     // ══════════════════════════════════════════════════════════
-    private void showInvoice() {
-        if (order.item.isEmpty()) {
-            JOptionPane.showMessageDialog(parent,
-                "Giỏ hàng đang trống!\nVui lòng chọn món trước.",
-                "Thông báo", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        new Receiptdialog(parent, order)
-            .onConfirmed(this::showDeliveryForm);
+private void showInvoice() {
+    if (order.item.isEmpty()) {
+        JOptionPane.showMessageDialog(parent,
+            "Giỏ hàng đang trống!\nVui lòng chọn món trước.",
+            "Thông báo", JOptionPane.WARNING_MESSAGE);
+        return;
     }
+
+    showDeliveryForm();
+}
 
     // ══════════════════════════════════════════════════════════
     //  BƯỚC 2: FORM THÔNG TIN NHẬN HÀNG + THANH TOÁN
@@ -489,7 +488,7 @@ public class CartPanel extends JPanel {
             // Lấy tổng tiền
             String tongTien = String.format("%,.0fđ", order.getPrice()).replace(',', '.');
 
-            dialog.dispose();
+    dialog.dispose();
 
             // Reset đơn hàng
             order.item.clear();
@@ -497,13 +496,19 @@ public class CartPanel extends JPanel {
             refresh();
             setVisible(false);
             parent.revalidate();
+    // Mở hóa đơn xác nhận, sau khi confirm mới reset
+    new Receiptdialog(parent, order, ten, phone, addr).onConfirmed(() -> {
+        order.item.clear();
+        refresh();
+        setVisible(false);
+        parent.revalidate();
 
-            // Đảm bảo parent được focus rồi mới mở popup
-            SwingUtilities.invokeLater(() -> {
-                parent.toFront();
-                parent.requestFocus();
-                showSuccessPopup(ten, phone, addr, phuongThuc, tongTien);
-            });
+        SwingUtilities.invokeLater(() -> {
+            parent.toFront();
+            parent.requestFocus();
+            showSuccessPopup(ten, phone, addr, phuongThuc, tongTien);
+        });
+    });
         });
 
         cancelBtn.addActionListener(e -> dialog.dispose());

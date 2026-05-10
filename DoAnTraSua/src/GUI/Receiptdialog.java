@@ -30,12 +30,19 @@ public class Receiptdialog extends JDialog {
     private final JFrame parent;
     private Runnable onConfirmed;
 
-    public Receiptdialog(JFrame parent, Order order) {
-        super(parent, "Hoa dDon Thanh Toan", true);
-        this.parent = parent;
-        this.order  = order;
-        buildDialog();
-    }
+private String tenKhach   = "Khach le";
+private String sdtKhach   = "";
+private String diaChiKhach = "";
+
+public Receiptdialog(JFrame parent, Order order, String ten, String sdt, String diaChi) {
+    super(parent, "Hoa Don Thanh Toan", true);
+    this.parent       = parent;
+    this.order        = order;
+    this.tenKhach     = ten;
+    this.sdtKhach     = sdt;
+    this.diaChiKhach  = diaChi;
+    buildDialog();
+}
 
     public Receiptdialog onConfirmed(Runnable r) {
         this.onConfirmed = r;
@@ -141,7 +148,7 @@ public class Receiptdialog extends JDialog {
         body.add(row("Ngay   :", ngay));
         body.add(row("Gio    :", gio));
         body.add(row("Thu ngan:", "ADMIN"));
-        body.add(row("Khach  :", "Khach le"));
+        body.add(row("Khach  :", tenKhach));
         body.add(gap(3));
         body.add(solid());
 
@@ -175,7 +182,6 @@ public class Receiptdialog extends JDialog {
         body.add(grandRow(total));
         body.add(gap(2));
         body.add(centerLbl(toViWords(total), italicF(11)));
-        body.add(stamp());
         body.add(dashed());
         body.add(gap(3));
         body.add(centerLbl("Cảm ơn quý khách - Hẹn Gặp Lại", plainF(11)));
