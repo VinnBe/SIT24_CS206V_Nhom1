@@ -9,7 +9,7 @@ package model;
  * @author nhan
  */
 public class Inventory {
-    public static final Toppings[] toppingNames;
+    static final Toppings[] toppingNames;
     public static int[] soLuong = {50, 2, 1000, 2, 1000};// số lượng tương ứng
     public static int da = 3, duong =3, traSua=3, socola=2, matCha=2;
        static {  // Khởi tạo 1 lần duy nhất khi class được load
@@ -23,6 +23,9 @@ public class Inventory {
            /**
      * Dùng 1 topping — trả về true nếu còn hàng, false nếu hết
      */
+    public static Toppings[] getToppings(){
+        return Inventory.toppingNames;
+    }
     public static boolean useTopping(String name) {
         for (int i = 0; i < toppingNames.length; i++) {
             if (toppingNames[i].ten().equals(name)) {

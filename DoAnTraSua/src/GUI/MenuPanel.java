@@ -208,7 +208,7 @@ public class MenuPanel extends JPanel {
 
     // ── Grid topping (2 cột) ──────────────────────────────────
     private JPanel buildToppingGrid() {
-        model.Toppings[] toppings = model.Inventory.toppingNames;
+        model.Toppings[] toppings = model.Inventory.getToppings();
         int cols = 3;
         int rows = (int) Math.ceil((double) toppings.length / cols);
 
@@ -294,7 +294,7 @@ public class MenuPanel extends JPanel {
         nameLbl.setFont(new Font("Serif", Font.BOLD, 15)); nameLbl.setForeground(BROWN_DARK);
 
         JLabel priceLbl = new JLabel(
-            String.format("M: %,.0f\u0111  |  L: %,.0f\u0111", drink.priceM, drink.priceL).replace(',', '.'),
+            String.format("M: %,.0f\u0111  |  L: %,.0f\u0111", drink.getPriceM(), drink.getPriceL()).replace(',', '.'),
             SwingConstants.CENTER);
         priceLbl.setFont(new Font("SansSerif", Font.BOLD, 14)); priceLbl.setForeground(RED_PRICE);
 

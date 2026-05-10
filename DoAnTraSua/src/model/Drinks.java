@@ -12,14 +12,29 @@ import java.util.ArrayList;
  */
 public class Drinks implements Drink {
      String name;
-     public double priceL,priceM, price;
-     public String size;
-     public int mucDa=100;
-     public int mucDuong=100;
-     public ArrayList<Toppings> dsTopping = new ArrayList<>();
+     double priceL,priceM, price;
+     String size;
+     int mucDa=100;
+     int mucDuong=100;
+     ArrayList<Toppings> dsTopping = new ArrayList<>();
     public Drinks() {}
+    public double getPriceL(){
+        return this.priceL;
+    }
+    public double getPriceM(){
+        return this.priceM;
+    }
     public double getPrice(){
         return this.price;
+    }
+    public int getMucDa(){
+        return this.mucDa;
+    }
+    public int getMucDuong(){
+        return this.mucDuong;
+    }
+    public ArrayList<Toppings> getDSTopping(){
+        return this.dsTopping;
     }
     public  String ten(){
         return this.name;

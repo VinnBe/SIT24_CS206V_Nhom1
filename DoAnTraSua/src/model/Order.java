@@ -14,7 +14,7 @@ import java.util.List;
 public class Order {
     public List<Drink> item= new ArrayList<>();        //mảng chứa các vật phẩm
     Drinks drink;
-    public int soLuong=0;
+    int soLuong=0;
     
     public List<Drink> getItems() {
     return item;
@@ -41,6 +41,12 @@ public class Order {
         System.out.println("Tong tien la: " + getPrice() + " VND");
         System.out.println("Cam on khach hang da tin tuong <3");
         }
+    public int getSoLuong(){
+        return this.soLuong;
+    }
+    public void setSoLuong(int n){
+            this.soLuong=n;
+    }
     public double getPrice(){        // lấy tổng giá tiền
        double sum = 0;
         for( Drink x: item){

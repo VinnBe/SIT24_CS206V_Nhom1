@@ -139,13 +139,13 @@ public class CartPanel extends JPanel {
 
                      Drinks drink = (Drinks) d;
 
-                        for (Toppings tp : drink.dsTopping) {
+                        for (Toppings tp : drink.getDSTopping()) {
                          Inventory.returnTopping(tp.ten());
                         }
                 }
             }
             order.item.clear();
-            order.soLuong = 0;
+            order.setSoLuong(0);
             refresh();
         });
 
@@ -204,8 +204,8 @@ public class CartPanel extends JPanel {
 
         double total = order.getPrice();
         totalLabel.setText(String.format("%,.0fđ", total).replace(',', '.'));
-        countLabel.setText(order.soLuong + " món"
-            + (order.soLuong >= 5 ? "  🎁 -10%" : ""));
+        countLabel.setText(order.getSoLuong() + " món"
+            + (order.getSoLuong() >= 5 ? "  🎁 -10%" : ""));
 
         itemsPanel.revalidate();
         itemsPanel.repaint();
@@ -282,14 +282,14 @@ public class CartPanel extends JPanel {
 
             Drinks drink = (Drinks) c;
 
-            for (Toppings tp : drink.dsTopping) {
+            for (Toppings tp : drink.getDSTopping()) {
                 Inventory.returnTopping(tp.ten());
             }
         }
     }
 
             order.item.remove(d);
-            order.soLuong = Math.max(0, order.soLuong - 1);
+            order.setSoLuong(Math.max(0, order.getSoLuong() - 1));
             refresh();
         });
 
@@ -493,7 +493,7 @@ public class CartPanel extends JPanel {
 
             // Reset đơn hàng
             order.item.clear();
-            order.soLuong = 0;
+            order.setSoLuong(0);
             refresh();
             setVisible(false);
             parent.revalidate();

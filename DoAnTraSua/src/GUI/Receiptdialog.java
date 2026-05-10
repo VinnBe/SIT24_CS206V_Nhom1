@@ -165,11 +165,11 @@ public class Receiptdialog extends JDialog {
     body.add(solid());
         double sub = 0;
         for (Drink d : order.item) sub += d.getPrice();
-        boolean disc = order.soLuong >= 5;
+        boolean disc = order.getSoLuong() >= 5;
         double  cut  = disc ? Math.round(sub * 0.1) : 0;
         double  total = sub - cut;
 
-        body.add(row("T.Cong (" + order.soLuong + " ly):", fmtVND(sub)));
+        body.add(row("T.Cong (" + order.getSoLuong() + " ly):", fmtVND(sub)));
         if (disc) body.add(rowRed("Giam gia (10%):", "- " + fmtVND(cut)));
         body.add(dashed());
         body.add(grandRow(total));

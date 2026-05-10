@@ -18,7 +18,7 @@ public class ToppingPanel extends JDialog {
         super(parent, "Tuỳ chọn: " + drink.ten(), true);
 
         // Lấy toàn bộ topping từ Inventory (không hard-code)
-        Toppings[] toppings = Inventory.toppingNames;
+        Toppings[] toppings = Inventory.getToppings();
 
         int dialogH = 130 + toppings.length * 34 + 160;
         setLayout(new BorderLayout());
@@ -72,9 +72,9 @@ public class ToppingPanel extends JDialog {
         body.add(Box.createVerticalStrut(6));
 
         JRadioButton rbM = new JRadioButton(String.format(
-            "Size M  —  %,.0fđ", drink.priceM).replace(',', '.'));
+            "Size M  —  %,.0fđ", drink.getPriceM()).replace(',', '.'));
         JRadioButton rbL = new JRadioButton(String.format(
-            "Size L  —  %,.0fđ", drink.priceL).replace(',', '.'));
+            "Size L  —  %,.0fđ", drink.getPriceL()).replace(',', '.'));
         rbM.setFont(new Font("SansSerif", Font.PLAIN, 13));
         rbL.setFont(new Font("SansSerif", Font.PLAIN, 13));
         rbM.setBackground(BG);
