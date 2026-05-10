@@ -90,7 +90,7 @@ public class MainFrame extends JFrame {
             @Override protected void paintComponent(Graphics g) {
                 if (hov) {
                     Graphics2D g2 = (Graphics2D) g.create();
-                    g2.setColor(new Color(255, 255, 255, 30));
+                    g2.setColor(new Color(255, 215, 0, 60));
                     g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
                     g2.dispose();
                 }
