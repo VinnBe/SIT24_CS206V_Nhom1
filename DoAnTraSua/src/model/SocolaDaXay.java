@@ -8,7 +8,7 @@ package model;
  *
  * @author nhan
  */
-public class SocolaDaXay extends DaXay{
+public class SocolaDaXay extends Drinks implements Drink{
     public SocolaDaXay(){
         this.name="Socola đá xay";
         this.priceM=30000;

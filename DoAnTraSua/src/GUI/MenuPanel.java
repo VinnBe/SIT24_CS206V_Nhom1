@@ -33,6 +33,19 @@ public class MenuPanel extends JPanel {
         "trasua_socola.jpg",
         "trasua_matcha.jpg"
     };
+    
+    private static final String[] TRA_TRAI_CAY_IMAGES = {
+    "tra_chanh.jpg",
+    "tra_dau.jpg",
+    "tra_mangcau.png",
+    "tra_oi.png",
+    "tra_vai.png"
+    };
+    
+    private static final String[] DA_XAY_IMAGES = {
+    "matcha_daxay.png",
+    "socola_daxay.jpg"
+    };
 
     private static final String[] TOPPING_IMAGES = {
         "tranchau.jpg",
@@ -41,6 +54,8 @@ public class MenuPanel extends JPanel {
         "thachcunang.jpg",
         "tranchautrang.jpg"
     };
+    private static final String[] DA_XAY_EMOJI  = {"\uD83C\uDF35", "\uD83C\uDF6B"};
+    private static final String[] TRA_TRAI_CAY_EMOJI = {"\uD83C\uDF4B", "\uD83C\uDF53", "\uD83C\uDF4A", "\uD83C\uDF50", "\uD83C\uDF47"};
     private static final String[] DRINK_EMOJI  = { "\uD83E\uDD64", "\uD83C\uDF75", "\uD83C\uDF6B", "\uD83C\uDF35" };
     private static final Color[]  DRINK_COLORS = {
         new Color(0xFFF3E0), new Color(0xE8F5E9), new Color(0xFCE4EC), new Color(0xE8F5E9)
@@ -107,6 +122,12 @@ public class MenuPanel extends JPanel {
 
         content.add(buildSectionHeader("🧋 TRÀ SỮA"));
         content.add(buildDrinkGrid());
+        content.add(Box.createVerticalStrut(16));
+        content.add(buildSectionHeader("🍋 TRÀ TRÁI CÂY"));
+        content.add(buildTraTraiCayGrid());
+        content.add(Box.createVerticalStrut(16));
+        content.add(buildSectionHeader("🧊 ĐÁ XAY"));
+        content.add(buildDaXayGrid());
         content.add(Box.createVerticalStrut(16));
         content.add(buildSectionHeader("🧊 TOPPING"));
         content.add(buildToppingGrid());
@@ -205,7 +226,251 @@ public class MenuPanel extends JPanel {
         }
         return grid;
     }
+    
+    private JPanel buildTraTraiCayGrid() {
+        Drinks[] ttc  = menu.traTraiCay;
+        int cols = 4;
+        int rows = (int) Math.ceil((double) ttc.length / cols);
 
+        JPanel grid = new JPanel(new GridLayout(rows, cols, 16, 16));
+        grid.setBackground(BG);
+        grid.setBorder(new EmptyBorder(16, 24, 8, 24));
+        grid.setMaximumSize(new Dimension(Integer.MAX_VALUE, rows * 380 + 40));
+
+        for (int i = 0; i < ttc.length; i++) {
+            grid.add(buildTraTraiCayCard(ttc[i], i));
+        }
+        // điền ô trống nếu số lẻ
+        int remainder = ttc.length % cols;
+        if (remainder != 0) {
+            for (int i = 0; i < cols - remainder; i++) {
+                JPanel empty = new JPanel();
+                empty.setBackground(BG);
+                grid.add(empty);
+            }
+        }
+        return grid;
+    }
+
+    private JPanel buildTraTraiCayCard(Drinks drink, int idx) {
+        String emoji   = TRA_TRAI_CAY_EMOJI [idx % TRA_TRAI_CAY_EMOJI.length];
+        Color  bgColor = DRINK_COLORS        [idx % DRINK_COLORS.length];
+        Image  img     = loadImage(TRA_TRAI_CAY_IMAGES[idx % TRA_TRAI_CAY_IMAGES.length]);
+
+        JPanel card = new JPanel(new BorderLayout(0, 10)) {
+            boolean hov = false;
+            { setBackground(CARD_BG);
+            setBorder(new CompoundBorder(
+                new LineBorder(BORDER_C, 1, true),
+                new EmptyBorder(18, 16, 18, 16)));
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            addMouseListener(new MouseAdapter() {
+                public void mouseEntered(MouseEvent e) { hov = true;  repaint(); }
+                public void mouseExited (MouseEvent e) { hov = false; repaint(); }
+            }); }
+            @Override protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(hov ? HOVER_CARD : CARD_BG);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 14, 14);
+                if (hov) { g2.setColor(GOLD); g2.setStroke(new BasicStroke(1.5f));
+                    g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 14, 14); }
+                g2.dispose();
+            }
+        };
+        
+    JPanel imgPanel = new JPanel() {
+        @Override protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,  RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            int sz = Math.min(getWidth(), getHeight()) - 24;
+            int x = (getWidth()-sz)/2, y = (getHeight()-sz)/2;
+            g2.setColor(new Color(0,0,0,25)); g2.fillOval(x+5,y+7,sz,sz);
+            Shape circle = new java.awt.geom.Ellipse2D.Float(x,y,sz,sz);
+            g2.setClip(circle);
+            if (img != null) {
+                int iw = img.getWidth(this), ih = img.getHeight(this);
+                if (iw > 0 && ih > 0) {
+                    double scale = Math.max((double)sz/iw,(double)sz/ih);
+                    int dw=(int)(iw*scale), dh=(int)(ih*scale);
+                    g2.drawImage(img, x+(sz-dw)/2, y+(sz-dh)/2, dw, dh, this);
+                }
+            } else {
+                g2.setColor(bgColor); g2.fillOval(x,y,sz,sz);
+                g2.setClip(null);
+                g2.setFont(new Font("Segoe UI Emoji", Font.PLAIN, sz/2));
+                FontMetrics fm = g2.getFontMetrics();
+                g2.setColor(new Color(0,0,0,200));
+                g2.drawString(emoji, (getWidth()-fm.stringWidth(emoji))/2,
+                    (getHeight()+fm.getAscent()-fm.getDescent())/2-4);
+            }
+            g2.setClip(null);
+            g2.setColor(GOLD); g2.setStroke(new BasicStroke(2.5f));
+            g2.drawOval(x,y,sz,sz);
+            g2.dispose();
+        }
+    };
+    imgPanel.setOpaque(false);
+    imgPanel.setPreferredSize(new Dimension(0, 160));
+
+    JLabel nameLbl = new JLabel(drink.ten().toUpperCase(), SwingConstants.CENTER);
+    nameLbl.setFont(new Font("Serif", Font.BOLD, 15));
+    nameLbl.setForeground(BROWN_DARK);
+
+    JLabel priceLbl = new JLabel(
+        String.format("M: %,.0fđ  |  L: %,.0fđ", drink.getPriceM(), drink.getPriceL())
+              .replace(',', '.'),
+        SwingConstants.CENTER);
+    priceLbl.setFont(new Font("SansSerif", Font.BOLD, 14));
+    priceLbl.setForeground(RED_PRICE);
+
+    JButton orderBtn = buildRoundBtn("+ Chọn Size & Topping", RED_BTN, Color.WHITE);
+    orderBtn.addActionListener(e -> new ToppingPanel(
+        (JFrame) SwingUtilities.getWindowAncestor(this), drink, order, cartPanel));
+
+    JPanel info = new JPanel(new GridLayout(3, 1, 0, 6));
+    info.setOpaque(false);
+    info.add(nameLbl); info.add(priceLbl);
+    JPanel btnRow = new JPanel(new GridLayout(1,1));
+    btnRow.setOpaque(false); btnRow.add(orderBtn);
+    info.add(btnRow);
+
+    card.add(imgPanel, BorderLayout.CENTER);
+    card.add(info,     BorderLayout.SOUTH);
+    return card;
+}
+    
+    // ── Grid đá xay ───────────────────────────────────────────
+private JPanel buildDaXayGrid() {
+    Drinks[] daXay = menu.daXay;
+    int cols = 4;
+    int rows = (int) Math.ceil((double) daXay.length / cols);
+
+    JPanel grid = new JPanel(new GridLayout(rows, cols, 16, 16));
+    grid.setBackground(BG);
+    grid.setBorder(new EmptyBorder(16, 24, 8, 24));
+    grid.setMaximumSize(new Dimension(Integer.MAX_VALUE, rows * 380 + 40));
+
+    for (int i = 0; i < daXay.length; i++) {
+        grid.add(buildDaXayCard(daXay[i], i));
+    }
+    // Điền ô trống nếu số lẻ
+    int remainder = daXay.length % cols;
+    if (remainder != 0) {
+        for (int i = 0; i < cols - remainder; i++) {
+            JPanel empty = new JPanel();
+            empty.setBackground(BG);
+            grid.add(empty);
+        }
+    }
+    return grid;
+}
+
+// ── Card đá xay ───────────────────────────────────────────
+private JPanel buildDaXayCard(Drinks drink, int idx) {
+    String emoji   = DA_XAY_EMOJI [idx % DA_XAY_EMOJI.length];
+    Color  bgColor = DRINK_COLORS [idx % DRINK_COLORS.length];
+    Image  img     = loadImage(DA_XAY_IMAGES[idx % DA_XAY_IMAGES.length]);
+
+    JPanel card = new JPanel(new BorderLayout(0, 10)) {
+        boolean hov = false;
+        {
+            setBackground(CARD_BG);
+            setBorder(new CompoundBorder(
+                new LineBorder(BORDER_C, 1, true),
+                new EmptyBorder(18, 16, 18, 16)));
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            addMouseListener(new MouseAdapter() {
+                public void mouseEntered(MouseEvent e) { hov = true;  repaint(); }
+                public void mouseExited (MouseEvent e) { hov = false; repaint(); }
+            });
+        }
+        @Override protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(hov ? HOVER_CARD : CARD_BG);
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), 14, 14);
+            if (hov) {
+                g2.setColor(GOLD);
+                g2.setStroke(new BasicStroke(1.5f));
+                g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 14, 14);
+            }
+            g2.dispose();
+        }
+    };
+
+    JPanel imgPanel = new JPanel() {
+        @Override protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,  RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            int sz = Math.min(getWidth(), getHeight()) - 24;
+            int x  = (getWidth() - sz) / 2, y = (getHeight() - sz) / 2;
+            // Bóng
+            g2.setColor(new Color(0, 0, 0, 25));
+            g2.fillOval(x + 5, y + 7, sz, sz);
+            // Clip tròn
+            Shape circle = new java.awt.geom.Ellipse2D.Float(x, y, sz, sz);
+            g2.setClip(circle);
+            if (img != null) {
+                int iw = img.getWidth(this), ih = img.getHeight(this);
+                if (iw > 0 && ih > 0) {
+                    double scale = Math.max((double) sz / iw, (double) sz / ih);
+                    int dw = (int)(iw * scale), dh = (int)(ih * scale);
+                    g2.drawImage(img, x + (sz - dw) / 2, y + (sz - dh) / 2, dw, dh, this);
+                }
+            } else {
+                g2.setColor(bgColor);
+                g2.fillOval(x, y, sz, sz);
+                g2.setClip(null);
+                g2.setFont(new Font("Segoe UI Emoji", Font.PLAIN, sz / 2));
+                FontMetrics fm = g2.getFontMetrics();
+                g2.setColor(new Color(0, 0, 0, 200));
+                g2.drawString(emoji,
+                    (getWidth() - fm.stringWidth(emoji)) / 2,
+                    (getHeight() + fm.getAscent() - fm.getDescent()) / 2 - 4);
+            }
+            g2.setClip(null);
+            g2.setColor(GOLD);
+            g2.setStroke(new BasicStroke(2.5f));
+            g2.drawOval(x, y, sz, sz);
+            g2.dispose();
+        }
+    };
+    imgPanel.setOpaque(false);
+    imgPanel.setPreferredSize(new Dimension(0, 160));
+
+    JLabel nameLbl = new JLabel(drink.ten().toUpperCase(), SwingConstants.CENTER);
+    nameLbl.setFont(new Font("Serif", Font.BOLD, 15));
+    nameLbl.setForeground(BROWN_DARK);
+
+    JLabel priceLbl = new JLabel(
+        String.format("M: %,.0fđ  |  L: %,.0fđ", drink.getPriceM(), drink.getPriceL())
+              .replace(',', '.'),
+        SwingConstants.CENTER);
+    priceLbl.setFont(new Font("SansSerif", Font.BOLD, 14));
+    priceLbl.setForeground(RED_PRICE);
+
+    JButton orderBtn = buildRoundBtn("+ Chọn Size & Topping", RED_BTN, Color.WHITE);
+    orderBtn.addActionListener(e -> new ToppingPanel(
+        (JFrame) SwingUtilities.getWindowAncestor(this), drink, order, cartPanel));
+
+    JPanel info = new JPanel(new GridLayout(3, 1, 0, 6));
+    info.setOpaque(false);
+    info.add(nameLbl);
+    info.add(priceLbl);
+    JPanel btnRow = new JPanel(new GridLayout(1, 1));
+    btnRow.setOpaque(false);
+    btnRow.add(orderBtn);
+    info.add(btnRow);
+
+    card.add(imgPanel, BorderLayout.CENTER);
+    card.add(info,     BorderLayout.SOUTH);
+    return card;
+}
     // ── Grid topping (2 cột) ──────────────────────────────────
     private JPanel buildToppingGrid() {
         model.Toppings[] toppings = model.Inventory.getToppings();

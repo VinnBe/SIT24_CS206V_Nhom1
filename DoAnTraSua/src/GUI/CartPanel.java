@@ -490,12 +490,7 @@ private void showInvoice() {
 
     dialog.dispose();
 
-            // Reset đơn hàng
-            order.item.clear();
-            order.setSoLuong(0);
-            refresh();
-            setVisible(false);
-            parent.revalidate();
+
     // Mở hóa đơn xác nhận, sau khi confirm mới reset
     new Receiptdialog(parent, order, ten, phone, addr).onConfirmed(() -> {
         order.item.clear();
