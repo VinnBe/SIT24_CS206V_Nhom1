@@ -20,7 +20,7 @@ public class Order {
     return item;
     }
     public Order(){}
-    public void addItem(Drinks drink){             // them nuoc uong vao       
+    public void addItem(Drink drink){             // them nuoc uong vao       
         item.add((drink));
         this.soLuong+=1;
     }

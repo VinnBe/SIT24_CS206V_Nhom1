@@ -4,19 +4,23 @@
  */
 package doantrasua;
 import GUI.MainFrame;
+import java.util.Set;
 import javax.swing.SwingUtilities;
 import model.BanhPlan;
 import model.Drink;
 import model.Drinks;
 import model.HatThuyTinh;
+import model.MatchaDaXay;
 import model.Menu;
 import model.Order;
+import model.SocolaDaXay;
 import model.ThachCuNang;
 import model.Toppings;
 import model.TraSuaMatCha;
 import model.TraSuaSocola;
 import model.TraSuaThaiXanh;
 import model.TraSuaTruyenThong;
+import model.TraVai;
 import model.TranChau;
 /**
  *
@@ -30,6 +34,18 @@ public class Main {
     public static void main(String[] args) {
         // TOMDO code application logic here
         SwingUtilities.invokeLater(MainFrame::new);
+        BanhPlan bp= new BanhPlan();
+        MatchaDaXay mc= new MatchaDaXay();
+        mc.setSize("L");
+        mc.themTopping(bp);
+        
+        SocolaDaXay scl= new SocolaDaXay();
+        scl.setSize("M");
+        scl.themTopping(bp);
+        Order od= new Order();
+        od.addItem(mc);
+        od.addItem(scl);
+        od.hienThiHoaDon();
     }
 
 }
