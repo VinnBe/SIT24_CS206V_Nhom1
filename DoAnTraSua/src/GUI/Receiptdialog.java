@@ -170,7 +170,7 @@ public class Receiptdialog extends JDialog {
         double  total = sub - cut;
 
         body.add(row("T.Cong (" + order.getSoLuong() + " ly):", fmtVND(sub)));
-        if (disc) body.add(rowRed("Giam gia (10%):", "- " + fmtVND(cut)));
+        if (disc) body.add(rowRed("Giảm giá (10%):", "- " + fmtVND(cut)));
         body.add(dashed());
         body.add(grandRow(total));
         body.add(gap(2));
@@ -178,7 +178,7 @@ public class Receiptdialog extends JDialog {
         body.add(stamp());
         body.add(dashed());
         body.add(gap(3));
-        body.add(centerLbl("Cam On Quy Khach - Hen Gap Lai", plainF(11)));
+        body.add(centerLbl("Cảm ơn quý khách - Hẹn Gặp Lại", plainF(11)));
         body.add(centerLbl("*** MeoMeoTea ***",               plainF(11)));
         body.add(gap(10));
         body.add(btnRow());
@@ -308,8 +308,8 @@ public class Receiptdialog extends JDialog {
     }
 
     private JPanel btnRow() {
-        JButton ok    = makeBtn("XAC NHAN DAT HANG", new Color(55, 30, 8), Color.WHITE);
-        JButton close = makeBtn("DONG", PAPER_BG, INK_MUTED);
+        JButton ok    = makeBtn("XÁC NHẬN ĐẶT HÀNG", new Color(55, 30, 8), Color.WHITE);
+        JButton close = makeBtn("ĐÓNG", PAPER_BG, INK_MUTED);
         close.setBorder(new LineBorder(new Color(185, 175, 155), 1, true));
         ok   .addActionListener(e -> { dispose(); if (onConfirmed != null) onConfirmed.run(); });
         close.addActionListener(e -> dispose());
@@ -390,7 +390,7 @@ public class Receiptdialog extends JDialog {
     }
 
     private String fmtVND(double v) {
-        return String.format("%,.0fd", v).replace(',', '.');
+        return String.format("%,.0f Đ", v).replace(',', '.');
     }
 
     private String toViWords(double amount) {
