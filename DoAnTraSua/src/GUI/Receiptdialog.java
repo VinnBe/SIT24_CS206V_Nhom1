@@ -230,7 +230,7 @@ public Receiptdialog(JFrame parent, Order order, String ten, String sdt, String 
         p.setBackground(PAPER_BG);
         p.setMaximumSize(new Dimension(Integer.MAX_VALUE, 22));
         p.setBorder(new EmptyBorder(3, 0, 3, 0));
-        JLabel lN = new JLabel("TEN HANG"), lR = new JLabel("SL     T.TIEN");
+        JLabel lN = new JLabel("TEN HANG"), lR = new JLabel("SL               T.TIEN");
         lN.setFont(boldF(11)); lR.setFont(boldF(11));
         lN.setForeground(INK); lR.setForeground(INK);
         p.add(lN, BorderLayout.WEST);
@@ -317,7 +317,10 @@ public Receiptdialog(JFrame parent, Order order, String ten, String sdt, String 
         JButton ok    = makeBtn("XÁC NHẬN ĐẶT HÀNG", new Color(55, 30, 8), Color.WHITE);
         JButton close = makeBtn("ĐÓNG", PAPER_BG, INK_MUTED);
         close.setBorder(new LineBorder(new Color(185, 175, 155), 1, true));
-        ok   .addActionListener(e -> { dispose(); if (onConfirmed != null) onConfirmed.run(); });
+        ok   .addActionListener(e -> { 
+            order.setSoLuong(0);
+            dispose(); 
+            if (onConfirmed != null) onConfirmed.run(); });
         close.addActionListener(e -> dispose());
         JPanel p = new JPanel(new GridLayout(1, 2, 10, 0));
         p.setBackground(PAPER_BG);
