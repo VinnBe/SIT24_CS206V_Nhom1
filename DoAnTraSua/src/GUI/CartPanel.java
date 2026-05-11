@@ -215,7 +215,7 @@ public class CartPanel extends JPanel {
 
         double total = order.getPrice();
         totalLabel.setText(String.format("%,.0fđ", total).replace(',', '.'));
-        countLabel.setText(order.getSoLuong() + " món"
+        countLabel.setText(order.getSoLuongVatPham() + " món"
             + (order.getSoLuong() >= 5 ? "  🎁 -10%" : ""));
 
         itemsPanel.revalidate();

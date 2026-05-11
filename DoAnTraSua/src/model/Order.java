@@ -44,6 +44,9 @@ public class Order {
     public int getSoLuong(){
         return this.soLuong;
     }
+    public int getSoLuongVatPham(){
+        return item.size();
+    }
     public void setSoLuong(int n){
             this.soLuong=n;
     }

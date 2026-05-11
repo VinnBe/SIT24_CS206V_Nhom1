@@ -17,7 +17,7 @@ public class MenuPanel extends JPanel {
     private model.Menu menu;
     private Order      order;
     private CartPanel  cartPanel;
-
+    private Image cartImg; 
     static final Color BG         = new Color(250, 247, 242);
     static final Color BROWN      = new Color(101,  67, 33);
     static final Color BROWN_DARK = new Color(60,   35, 10);
@@ -63,13 +63,13 @@ public class MenuPanel extends JPanel {
         new Color(0xFFF3E0), new Color(0xE8F5E9), new Color(0xFCE4EC), new Color(0xE8F5E9)
     };
 
-    public MenuPanel(model.Menu menu, Order order, CartPanel cartPanel) {
-        this.menu = menu; this.order = order; this.cartPanel = cartPanel;
+    public MenuPanel(model.Menu menu, Order order, CartPanel cartPanel, Image cartImg) {
+        this.menu = menu; this.order = order; this.cartPanel = cartPanel; this.cartImg=cartImg;
         setLayout(new BorderLayout());
         setBackground(BG);
         buildUI();
     }
-    public MenuPanel(model.Menu menu, Order order) { this(menu, order, null); }
+    public MenuPanel(model.Menu menu, Order order) { this(menu, order, null,null); }
     public void setCartPanel(CartPanel cp) { this.cartPanel = cp; }
     
     private Image loadImage(String filename) {

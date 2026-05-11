@@ -15,6 +15,7 @@ public class MainFrame extends JFrame {
     private Order      order = new Order();
     private CartPanel cartPanel;
     private MenuPanel menuPanel;
+    private Image cartImg;
 
     // ── Colors ──────────────────────────────────────────────
     static final Color BROWN      = new Color(101, 67, 33);
@@ -26,6 +27,11 @@ public class MainFrame extends JFrame {
     static final Color BORDER_C   = new Color(220, 200, 170);
 
     public MainFrame() {
+        cartImg = new ImageIcon(
+        getClass().getResource("/resources/cart.png")
+    ).getImage();
+
+    MenuPanel menu2 = new MenuPanel(menu, order, cartPanel, cartImg);
         setTitle("MeoMeoTea");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1150, 760);
@@ -75,7 +81,13 @@ public class MainFrame extends JFrame {
         logoArea.add(tagline);
 
         // Cart toggle button
-        JButton cartBtn = new JButton("🛒  Xem Giỏ Hàng") {
+        ImageIcon cartIcon = new ImageIcon(
+        getClass().getResource("/resources/cart3.png")
+        );
+
+        Image img = cartIcon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        cartIcon = new ImageIcon(img);
+        JButton cartBtn = new JButton(cartIcon) {
             boolean hov = false;
             {
                 setContentAreaFilled(false); setBorderPainted(false); setFocusPainted(false);
@@ -97,7 +109,7 @@ public class MainFrame extends JFrame {
                 super.paintComponent(g);
             }
         };
-        cartBtn.setPreferredSize(new Dimension(170, 38));
+        cartBtn.setPreferredSize(new Dimension(100, 38));
         cartBtn.addActionListener(e -> {
             cartPanel.setVisible(!cartPanel.isVisible());
             revalidate();
