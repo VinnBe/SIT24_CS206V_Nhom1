@@ -10,7 +10,7 @@ package model;
  */
 public class TraMangCau extends Drinks implements Drink{
        public TraMangCau(){
-        this.name="Trà dâu";
+        this.name="Trà mãng cầu";
         this.priceM=30000;
         this.priceL=37000;
     }

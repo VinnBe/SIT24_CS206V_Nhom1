@@ -143,10 +143,21 @@ public class CartPanel extends JPanel {
                          Inventory.returnTopping(tp.ten());
                         }
                 }
+                else if (d instanceof Toppings) {
+
+                    Toppings top = (Toppings) d;
+
+                    Inventory.returnTopping(top.ten());
+    }
             }
+            
+    
             order.item.clear();
             order.setSoLuong(0);
             refresh();
+              SwingUtilities
+        .getWindowAncestor(clearBtn)
+         .repaint();
         });
 
         JPanel priceArea = new JPanel(new GridLayout(2, 1, 0, 2));
@@ -276,18 +287,24 @@ public class CartPanel extends JPanel {
         };
         del.addActionListener(e -> {
              // hoàn topping
-            for (Drink c : order.item) {
+           
 
-            if (c instanceof Drinks) {
+        if ( d  instanceof Drinks) {
 
-            Drinks drink = (Drinks) c;
+            Drinks dr = (Drinks) d;
 
-            for (Toppings tp : drink.getDSTopping()) {
-                Inventory.returnTopping(tp.ten());
+                for (Toppings tp : dr.getDSTopping()) {
+                    Inventory.returnTopping(tp.ten());
+                }
             }
-        }
-    }
-
+            else{
+                Toppings top = (Toppings) d; 
+                Inventory.returnTopping(top.ten());
+            }
+            
+            SwingUtilities
+            .getWindowAncestor(del)
+            .repaint();
             order.item.remove(d);
             order.setSoLuong(Math.max(0, order.getSoLuong() - 1));
             refresh();

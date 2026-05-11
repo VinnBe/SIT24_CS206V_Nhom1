@@ -10,7 +10,7 @@ package model;
  */
 public class Inventory {
     static final Toppings[] toppingNames;
-    public static int[] soLuong = {50, 2, 1000, 2, 1000};// số lượng tương ứng
+    public static int[] soLuong = {50, 2, 100, 2, 100};// số lượng tương ứng
     public static int da = 3, duong =3, traSua=3, socola=2, matCha=2;
        static {  // Khởi tạo 1 lần duy nhất khi class được load
         toppingNames = new Toppings[5];
@@ -43,7 +43,7 @@ public class Inventory {
     for (int i = 0; i < toppingNames.length; i++) {
 
         if (toppingNames[i].ten().equals(name)) {
-            soLuong[i]++;
+            soLuong[i]+=toppingNames[i].soLuongDung;
             return;
         }
     }

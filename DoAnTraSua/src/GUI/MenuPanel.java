@@ -9,6 +9,8 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
+import static java.time.zone.ZoneRulesProvider.refresh;
+import java.util.function.Supplier;
 
 public class MenuPanel extends JPanel {
 
@@ -69,7 +71,7 @@ public class MenuPanel extends JPanel {
     }
     public MenuPanel(model.Menu menu, Order order) { this(menu, order, null); }
     public void setCartPanel(CartPanel cp) { this.cartPanel = cp; }
-
+    
     private Image loadImage(String filename) {
         // Các thư mục sẽ tìm ảnh, theo thứ tự ưu tiên
         String[] searchDirs = {
@@ -579,23 +581,24 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
 
     // ── Card topping ──────────────────────────────────────────
     private JPanel buildToppingCard(model.Toppings tp, int idx) {
-        boolean outOfStock = model.Inventory.soLuong[idx] <= 0;
-
+//        boolean outOfStock = model.Inventory.soLuong[idx] <= 0;
+        Supplier<Boolean> outOfStock =
+            () -> model.Inventory.soLuong[idx] <= 0;
         JPanel card = new JPanel(new BorderLayout(0, 8)) {
             boolean hov = false;
             { setBackground(CARD_BG);
               setBorder(new CompoundBorder(new LineBorder(BORDER_C, 1, true), new EmptyBorder(14, 12, 14, 12)));
-              setCursor(outOfStock ? Cursor.getDefaultCursor() : Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-              if (!outOfStock) addMouseListener(new MouseAdapter() {
+              setCursor(outOfStock.get() ? Cursor.getDefaultCursor() : Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+              if (!outOfStock.get()) addMouseListener(new MouseAdapter() {
                   public void mouseEntered(MouseEvent e) { hov = true;  repaint(); }
                   public void mouseExited (MouseEvent e) { hov = false; repaint(); }
               }); }
             @Override protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                Color bg = outOfStock ? new Color(240,235,225) : (hov ? HOVER_CARD : CARD_BG);
+                Color bg = outOfStock.get() ? new Color(245,245,245) : (hov ? HOVER_CARD : CARD_BG);
                 g2.setColor(bg); g2.fillRoundRect(0, 0, getWidth(), getHeight(), 14, 14);
-                if (hov && !outOfStock) { g2.setColor(GOLD); g2.setStroke(new BasicStroke(1.5f));
+                if (hov && !outOfStock.get()) { g2.setColor(GOLD); g2.setStroke(new BasicStroke(1.5f));
                     g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 14, 14); }
                 g2.dispose();
             }
@@ -638,8 +641,8 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
                     }
                     g2.setClip(null);
                     // Overlay mờ nếu hết hàng
-                    if (outOfStock) {
-                        g2.setColor(new Color(255, 255, 255, 110));
+                    if (outOfStock.get()) {
+                        g2.setColor(new Color(255, 255, 255, 170));
                         g2.fillRoundRect(pad, pad, w, h, arc, arc);
                     }
                 } else {
@@ -663,7 +666,7 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
 
                 // Viền khung
                 g2.setClip(null);
-                g2.setColor(outOfStock ? new Color(185, 165, 125) : GOLD);
+                g2.setColor(outOfStock.get() ? new Color(180, 160, 120) : GOLD);
                 g2.setStroke(new BasicStroke(1.8f));
                 g2.drawRoundRect(pad, pad, w - 1, h - 1, arc, arc);
 
@@ -675,16 +678,16 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
 
         JLabel nameLbl = new JLabel(tp.ten(), SwingConstants.CENTER);
         nameLbl.setFont(new Font("Serif", Font.BOLD, 13));
-        nameLbl.setForeground(outOfStock ? new Color(160,140,110) : BROWN_DARK);
+        nameLbl.setForeground(outOfStock.get() ? new Color(120,120,120,120) : BROWN_DARK);
 
         JLabel priceLbl = new JLabel(
             "+" + String.format("%,.0f", tp.getPrice()).replace(',', '.') + "đ",
             SwingConstants.CENTER);
         priceLbl.setFont(new Font("SansSerif", Font.BOLD, 13));
-        priceLbl.setForeground(outOfStock ? new Color(180,150,110) : RED_PRICE);
+        priceLbl.setForeground(outOfStock.get() ? new Color(120,120,120,120) : RED_PRICE);
 
         JButton addBtn;
-        if (outOfStock) {
+        if (outOfStock.get()) {
             addBtn = buildRoundBtn("Hết", new Color(180, 60, 60), Color.WHITE);
             addBtn.setEnabled(false);
         } else {
@@ -698,6 +701,7 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
                 }
             });
         }
+ 
 
         JPanel info = new JPanel(new GridLayout(3, 1, 0, 4));
         info.setOpaque(false); info.add(nameLbl); info.add(priceLbl);
