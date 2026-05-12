@@ -303,8 +303,10 @@ public class MenuPanel extends JPanel {
             int sz = Math.min(getWidth(), getHeight()) - 24;
             int x = (getWidth()-sz)/2, y = (getHeight()-sz)/2;
             g2.setColor(new Color(0,0,0,25)); g2.fillOval(x+5,y+7,sz,sz);
+         Shape oldClip = g2.getClip(); // 1. Lưu lại ranh giới của ScrollPane
             Shape circle = new java.awt.geom.Ellipse2D.Float(x,y,sz,sz);
-            g2.setClip(circle);
+            g2.clip(circle); // 2. Dùng hàm clip() thay vì setClip()
+
             if (img != null) {
                 int iw = img.getWidth(this), ih = img.getHeight(this);
                 if (iw > 0 && ih > 0) {
@@ -314,14 +316,17 @@ public class MenuPanel extends JPanel {
                 }
             } else {
                 g2.setColor(bgColor); g2.fillOval(x,y,sz,sz);
-                g2.setClip(null);
+                // Xóa chữ g2.setClip(null) ở đây nếu có
                 g2.setFont(new Font("Segoe UI Emoji", Font.PLAIN, sz/2));
                 FontMetrics fm = g2.getFontMetrics();
                 g2.setColor(new Color(0,0,0,200));
                 g2.drawString(emoji, (getWidth()-fm.stringWidth(emoji))/2,
                     (getHeight()+fm.getAscent()-fm.getDescent())/2-4);
             }
-            g2.setClip(null);
+            
+            g2.setClip(oldClip); // 3. Trả lại ranh giới gốc thay vì dùng null
+
+            g2.setColor(GOLD); g2.setStroke(new BasicStroke(2.5f));
             g2.setColor(GOLD); g2.setStroke(new BasicStroke(2.5f));
             g2.drawOval(x,y,sz,sz);
             g2.dispose();
