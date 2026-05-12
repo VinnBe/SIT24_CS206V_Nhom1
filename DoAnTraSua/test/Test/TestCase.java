@@ -301,15 +301,19 @@ public class TestCase {
         assertEquals(27000, service.getPrice(items), 0);
     }
         @Test
-    public void testConsumeTopping() {
-        Inventory.consumeTopping("Trân châu"); // 50 -> 0
+    public void testCommitTopping() {
+        Toppings tc= new TranChau();
+        int index = Inventory.getIndex(tc.ten());
+        Inventory.commit(index,(int)tc.getSoLuongDung()); // 50 -> 0
         assertEquals(0, Inventory.getSoLuong("Trân châu"));
     }
     @Test
     public void testReturnTopping() {
-        Inventory.consumeTopping("Trân châu"); // 50 -> 0
-        Inventory.returnTopping("Trân châu");  // 0 -> 50
-        assertEquals(50, Inventory.getSoLuong("Trân châu"));
+        Toppings tc= new TranChau();
+        int index = Inventory.getIndex(tc.ten());
+        Inventory.commit(index,(int)tc.getSoLuongDung()); // 50 -> 0
+        Inventory.returnTopping(tc.ten());  // 0 -> 50
+        assertEquals(50, Inventory.getSoLuong(tc.ten()));
     }
     @Test
     public void testGetSoLuongSauReset() {
