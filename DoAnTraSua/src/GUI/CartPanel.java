@@ -511,7 +511,9 @@ private void showInvoice() {
 
     dialog.dispose();
 
-
+if (rbMomo.isSelected()) {
+                showMoMoQRDialog(parent, order, ten, phone, addr, phuongThuc, tongTien);
+            } else {
     // Mở hóa đơn xác nhận, sau khi confirm mới reset
     new Receiptdialog(parent, order, ten, phone, addr).onConfirmed(() -> {
         order.getItems().clear();
@@ -525,6 +527,7 @@ private void showInvoice() {
             showSuccessPopup(ten, phone, addr, phuongThuc, tongTien);
         });
     });
+}
         });
 
         cancelBtn.addActionListener(e -> dialog.dispose());
@@ -800,6 +803,63 @@ private void showInvoice() {
             }
         });
         t.start();
+    }
+        // ====================== THANH TOÁN MOMO QR ======================
+    private void showMoMoQRDialog(JFrame parentFrame, Order order, String ten, String phone,
+                                  String addr, String phuongThuc, String tongTien) {
+        
+        JDialog qrDialog = new JDialog(parentFrame, "Thanh toán qua MoMo", true);
+        qrDialog.setSize(420, 550);
+        qrDialog.setLocationRelativeTo(parentFrame);
+        qrDialog.setResizable(false);
+        qrDialog.setBackground(new Color(40, 20, 5));
+
+        JPanel mainPanel = new JPanel(new BorderLayout(0, 15));
+        mainPanel.setBackground(new Color(40, 20, 5));
+        mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+        JLabel title = new JLabel("Quét mã QR MoMo", SwingConstants.CENTER);
+        title.setFont(new Font("SansSerif", Font.BOLD, 18));
+        title.setForeground(GOLD);
+
+        // Hiển thị ảnh QR
+                // Hiển thị ảnh QR
+        JLabel qrLabel = new JLabel();
+        qrLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        try {
+            // Đường dẫn đúng vì file nằm trong package resources
+            java.net.URL imgURL = getClass().getResource("/resources/momo.jpg");
+            
+            if (imgURL != null) {
+                ImageIcon icon = new ImageIcon(imgURL);
+                Image scaled = icon.getImage().getScaledInstance(280, 280, Image.SCALE_SMOOTH);
+                qrLabel.setIcon(new ImageIcon(scaled));
+            } else {
+                throw new Exception("Không tìm thấy ảnh");
+            }
+        } catch (Exception ex) {
+            qrLabel.setText("Không load được mã QR\nKiểm tra file momo.jpg");
+            qrLabel.setForeground(Color.RED);
+            qrLabel.setFont(new Font("SansSerif", Font.BOLD, 13));
+        }
+        JLabel note = new JLabel("<html><center>Vui lòng mở App MoMo<br>"
+                + "và quét mã để thanh toán số tiền:<br><b>" + tongTien + "</b></center></html>",
+                SwingConstants.CENTER);
+        note.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        note.setForeground(new Color(220, 200, 170));
+
+        
+        mainPanel.add(title, BorderLayout.NORTH);
+        mainPanel.add(qrLabel, BorderLayout.CENTER);
+        mainPanel.add(note, BorderLayout.SOUTH);
+
+        JPanel btnPanel = new JPanel();
+        btnPanel.setOpaque(false);
+
+        qrDialog.add(mainPanel, BorderLayout.CENTER);
+        qrDialog.add(btnPanel, BorderLayout.SOUTH);
+        qrDialog.setVisible(true);
     }
 
 }
