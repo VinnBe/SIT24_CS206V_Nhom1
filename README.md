@@ -74,14 +74,21 @@ src/
 * Hoài Nhân
 * Thế Vinh
 * Sang Hùng
+---
+---
 
 ## Phân công công việc
+
+
 Nguyễn Thế Vinh :
 ++ Giao diện (Gui):
 - Thiết kế MainFrame, MenuPanel
 - Xây dựng CartPanel, ToppingPanel
 - Tạo ReceiptDialog (hóa đơn)
 - Thiết kế layout & responsive UI
+---
+---
+
 Nguyễn Hoài Nhân :
 ++ Model + logic :
 - Xây dựng class Drinks, Toppings
@@ -89,6 +96,8 @@ Nguyễn Hoài Nhân :
 - Inventory: reserve/commit/release
 - OrderService: tính giá, khuyến mãi
 - TestCase
+---
+---  
 Lê Sang Hùng :
 ++ Model + logic :
 - Xây dựng class Drinks, Toppings
@@ -96,6 +105,8 @@ Lê Sang Hùng :
 - Inventory: reserve/commit/release
 - OrderService: tính giá, khuyến mãi
 - TestCase
+---
+---  
 Cả Nhóm :
 ++ Báo cáo + slide :
 - Viết báo cáo đồ án (Word)
