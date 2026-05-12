@@ -27,6 +27,7 @@ public class MainFrame extends JFrame {
     static final Color BORDER_C   = new Color(220, 200, 170);
 
     public MainFrame() {
+        
         cartImg = new ImageIcon(
         getClass().getResource("/resources/cart.png")
     ).getImage();

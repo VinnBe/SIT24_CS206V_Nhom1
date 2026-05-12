@@ -118,7 +118,20 @@ public class MenuPanel extends JPanel {
         add(buildHeader(), BorderLayout.NORTH);
 
         // Content toàn bộ cuộn dọc
-        JPanel content = new JPanel();
+        class ScrollablePanel extends JPanel implements Scrollable {
+            @Override public Dimension getPreferredScrollableViewportSize() { return getPreferredSize(); }
+            @Override public int getScrollableUnitIncrement(Rectangle r, int o, int d) { return 16; }
+            @Override public int getScrollableBlockIncrement(Rectangle r, int o, int d) { return 16; }
+            
+            // Dòng lệnh ma thuật: Ép chiều rộng bám sát JScrollPane, không bị cắt lẹm
+            @Override public boolean getScrollableTracksViewportWidth() { return true; } 
+            
+            @Override public boolean getScrollableTracksViewportHeight() { return false; }
+        }
+
+        // 2. Khởi tạo content bằng lớp vừa tạo thay vì JPanel mặc định
+        JPanel content = new ScrollablePanel();
+//        JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
         content.setBackground(BG);
 
@@ -142,7 +155,7 @@ public class MenuPanel extends JPanel {
         scroll.getVerticalScrollBar().setUnitIncrement(16);
         scroll.setBackground(BG);
         scroll.getViewport().setBackground(BG);
-
+        scroll.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
         add(scroll, BorderLayout.CENTER);
     }
 
@@ -687,21 +700,25 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
         priceLbl.setForeground(outOfStock.get() ? new Color(120,120,120,120) : RED_PRICE);
 
         JButton addBtn;
-        if (outOfStock.get()) {
-            addBtn = buildRoundBtn("Hết", new Color(180, 60, 60), Color.WHITE);
-            addBtn.setEnabled(false);
-        } else {
+//        if (outOfStock.get()) {
+//            addBtn = buildRoundBtn("Hết", new Color(180, 60, 60), Color.WHITE);
+//            addBtn.setEnabled(false);
+//        } else {
             addBtn = buildRoundBtn("+ Thêm", new Color(101, 67, 33), GOLD);
             addBtn.addActionListener(e -> {
                 order.addItem(tp);
                 if (cartPanel != null) {
                     cartPanel.refresh();
                     cartPanel.setVisible(true);
-                    SwingUtilities.getWindowAncestor(this).revalidate();
+//                    SwingUtilities.getWindowAncestor(this).revalidate();
+                    Window parentWindow = SwingUtilities.getWindowAncestor(this);
+                    if (parentWindow != null) {
+                        parentWindow.revalidate(); 
+                        parentWindow.repaint();
+                    }
                 }
             });
-        }
- 
+                    
 
         JPanel info = new JPanel(new GridLayout(3, 1, 0, 4));
         info.setOpaque(false); info.add(nameLbl); info.add(priceLbl);
