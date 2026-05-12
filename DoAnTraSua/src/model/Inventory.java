@@ -4,9 +4,6 @@
      */
     package model;
 
-    import java.util.HashMap;
-    import java.util.Map;
-
     /**
      *
      * @author nhan
@@ -38,14 +35,6 @@
                 }
             }
             return false; // không tìm thấy topping
-        }
-        public static void consumeTopping(String name) {   //hàm trừ kho khi thanh toán
-            for (int i = 0; i < toppingNames.length; i++) {
-                if (toppingNames[i].ten().equals(name)) {
-                    soLuong[i] -= toppingNames[i].soLuongDung;
-                    return;
-                }
-            }
         }
         public static void returnTopping(String name) {     // hàm lấy danh
             for (int i = 0; i < toppingNames.length; i++) {

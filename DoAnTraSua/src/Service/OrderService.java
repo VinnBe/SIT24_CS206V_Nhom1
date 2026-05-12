@@ -28,7 +28,8 @@ public class OrderService {
     // Thêm topping — kiểm tra kho trước
        public boolean addTopping(List<Drink> items, Toppings tp) {
         if (Inventory.useTopping(tp.ten())) {
-            Inventory.consumeTopping(tp.ten()); // trừ kho thật sự
+            int index =Inventory.getIndex(tp.ten());
+            Inventory.commit(index,(int) tp.getSoLuongDung()); // trừ kho thật sự
             items.add(tp);
             return true;
 

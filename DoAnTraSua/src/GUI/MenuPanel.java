@@ -4,13 +4,13 @@ import model.Drinks;
 import model.Toppings;
 import model.Order;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.*;
-import static java.time.zone.ZoneRulesProvider.refresh;
-import java.util.function.Supplier;
+    import javax.swing.*;
+    import javax.swing.border.*;
+    import java.awt.*;
+    import java.awt.event.*;
+    import java.awt.geom.*;
+    import static java.time.zone.ZoneRulesProvider.refresh;
+    import java.util.function.Supplier;
 
 public class MenuPanel extends JPanel {
 

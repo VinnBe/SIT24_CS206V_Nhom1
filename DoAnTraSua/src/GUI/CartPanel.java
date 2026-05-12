@@ -505,13 +505,15 @@ private void showInvoice() {
             if (d instanceof Drinks) {
                 Drinks drink = (Drinks) d;
 
-                for (Toppings tp : drink.getDSTopping()) {
-                    Inventory.consumeTopping(tp.ten());
+                for (Toppings tp : drink.getDSTopping()) {      
+                    int index=Inventory.getIndex(tp.ten());
+                    Inventory.commit(index, (int)tp.getSoLuongDung());
                 }
 
             } else if (d instanceof Toppings) {
                 Toppings top = (Toppings) d;
-                Inventory.consumeTopping(top.ten());
+                int index=Inventory.getIndex(top.ten());
+                    Inventory.commit(index, (int)top.getSoLuongDung());
     }
             }
             // Lấy phương thức thanh toán
