@@ -109,8 +109,7 @@ Lê Sang Hùng :
 ---  
 Cả Nhóm :
 ++ Báo cáo + slide :
-- Viết báo cáo đồ án (Word)
-- Thiết kế sơ đồ lớp (Class Diagram)
+- Viết báo cáo đồ án (PDF)
 - Chuẩn bị slide thuyết trình
 - Tổng hợp tài liệu hướng dẫn
 
