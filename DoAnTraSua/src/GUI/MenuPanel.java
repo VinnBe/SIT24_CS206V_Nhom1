@@ -428,27 +428,28 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
             g2.setColor(new Color(0, 0, 0, 25));
             g2.fillOval(x + 5, y + 7, sz, sz);
             // Clip tròn
-            Shape circle = new java.awt.geom.Ellipse2D.Float(x, y, sz, sz);
-            g2.setClip(circle);
+            Shape oldClip = g2.getClip(); // 1. Lưu lại ranh giới của ScrollPane
+            Shape circle = new java.awt.geom.Ellipse2D.Float(x,y,sz,sz);
+            g2.clip(circle); // 2. Dùng hàm clip() thay vì setClip()
+
             if (img != null) {
                 int iw = img.getWidth(this), ih = img.getHeight(this);
                 if (iw > 0 && ih > 0) {
-                    double scale = Math.max((double) sz / iw, (double) sz / ih);
-                    int dw = (int)(iw * scale), dh = (int)(ih * scale);
-                    g2.drawImage(img, x + (sz - dw) / 2, y + (sz - dh) / 2, dw, dh, this);
+                    double scale = Math.max((double)sz/iw,(double)sz/ih);
+                    int dw=(int)(iw*scale), dh=(int)(ih*scale);
+                    g2.drawImage(img, x+(sz-dw)/2, y+(sz-dh)/2, dw, dh, this);
                 }
             } else {
-                g2.setColor(bgColor);
-                g2.fillOval(x, y, sz, sz);
-                g2.setClip(null);
-                g2.setFont(new Font("Segoe UI Emoji", Font.PLAIN, sz / 2));
+                g2.setColor(bgColor); g2.fillOval(x,y,sz,sz);
+                // Xóa chữ g2.setClip(null) ở đây nếu có
+                g2.setFont(new Font("Segoe UI Emoji", Font.PLAIN, sz/2));
                 FontMetrics fm = g2.getFontMetrics();
-                g2.setColor(new Color(0, 0, 0, 200));
-                g2.drawString(emoji,
-                    (getWidth() - fm.stringWidth(emoji)) / 2,
-                    (getHeight() + fm.getAscent() - fm.getDescent()) / 2 - 4);
+                g2.setColor(new Color(0,0,0,200));
+                g2.drawString(emoji, (getWidth()-fm.stringWidth(emoji))/2,
+                    (getHeight()+fm.getAscent()-fm.getDescent())/2-4);
             }
-            g2.setClip(null);
+            
+            g2.setClip(oldClip); // 3. Trả lại ranh giới gốc thay vì dùng null
             g2.setColor(GOLD);
             g2.setStroke(new BasicStroke(2.5f));
             g2.drawOval(x, y, sz, sz);
@@ -639,11 +640,13 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
                 // Nền khung
                 g2.setColor(tpImage != null ? Color.WHITE : new Color(242, 232, 215));
                 g2.fillRoundRect(pad, pad, w, h, arc, arc);
+Shape oldClip = g2.getClip(); // 1. Lưu lại clip
 
                 if (tpImage != null) {
                     // Clip bo góc, vẽ ảnh fill đầy khung
                     Shape clip = new RoundRectangle2D.Float(pad, pad, w, h, arc, arc);
-                    g2.setClip(clip);
+                    g2.clip(clip); // Dùng clip() thay vì setClip()
+                    
                     int iw = tpImage.getWidth(null), ih = tpImage.getHeight(null);
                     if (iw > 0 && ih > 0) {
                         double scale = Math.max((double) w / iw, (double) h / ih);
@@ -652,7 +655,9 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
                             pad + (w - dw) / 2, pad + (h - dh) / 2,
                             dw, dh, this);
                     }
-                    g2.setClip(null);
+                    
+                    g2.setClip(oldClip); // Trả lại ranh giới ngay sau khi vẽ xong ảnh
+                    
                     // Overlay mờ nếu hết hàng
                     if (outOfStock.get()) {
                         g2.setColor(new Color(255, 255, 255, 170));
@@ -660,7 +665,7 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
                     }
                 } else {
                     // Placeholder: emoji + gợi ý
-                    g2.setClip(null);
+                    // ĐÃ XÓA g2.setClip(null)
                     int fs = Math.min(w, h) / 3;
                     g2.setFont(new Font("Segoe UI Emoji", Font.PLAIN, fs));
                     FontMetrics fm = g2.getFontMetrics();
@@ -678,7 +683,10 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
                 }
 
                 // Viền khung
-                g2.setClip(null);
+                // ĐÃ XÓA g2.setClip(null)
+                g2.setColor(outOfStock.get() ? new Color(180, 160, 120) : GOLD);
+                g2.setStroke(new BasicStroke(1.8f));
+                g2.drawRoundRect(pad, pad, w - 1, h - 1, arc, arc);
                 g2.setColor(outOfStock.get() ? new Color(180, 160, 120) : GOLD);
                 g2.setStroke(new BasicStroke(1.8f));
                 g2.drawRoundRect(pad, pad, w - 1, h - 1, arc, arc);
