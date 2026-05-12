@@ -721,10 +721,10 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
 //            });
                 addBtn.addActionListener(e -> {
 
-    int id = model.Inventory.getIndex(tp.ten());
-    int qty = 1;
+                int id = model.Inventory.getIndex(tp.ten());
+                int qty = 1;
 
-    int need =(int) (qty * tp.getSoLuongDung());
+                int need =(int) (qty * tp.getSoLuongDung());
 
     // dùng hàm reserve bạn đã có
     if (!model.Inventory.reserve(idx, need)) {

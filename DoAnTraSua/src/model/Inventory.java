@@ -13,7 +13,7 @@
      */
     public class Inventory {
         static int[] reserved = new int[100]; // hoặc đúng size topping
-        public static int[] reserved2 = {0, 0, 0, 0, 0};
+       // public static int[] reserved2 = {0, 0, 0, 0, 0};
         static final Toppings[] toppingNames;
         public static int[] soLuong = {50, 2, 100, 2, 100};// số lượng tương ứng
         public static int da = 3, duong =3, traSua=3, socola=2, matCha=2;
