@@ -140,14 +140,15 @@ public class CartPanel extends JPanel {
                      Drinks drink = (Drinks) d;
 
                         for (Toppings tp : drink.getDSTopping()) {
-                         Inventory.returnTopping(tp.ten());
+                            int index= Inventory.getIndex(tp.ten());
+                            Inventory.release(index, (int)tp.getSoLuongDung());
                         }
                 }
                 else if (d instanceof Toppings) {
 
                     Toppings top = (Toppings) d;
-
-                    Inventory.returnTopping(top.ten());
+                    int index=Inventory.getIndex(top.ten());
+                    Inventory.release(index,(int) top.getSoLuongDung());
     }
             }
             
@@ -294,12 +295,15 @@ public class CartPanel extends JPanel {
             Drinks dr = (Drinks) d;
 
                 for (Toppings tp : dr.getDSTopping()) {
-                    Inventory.returnTopping(tp.ten());
+                    int index= Inventory.getIndex(tp.ten());
+                    Inventory.release(index, (int)tp.getSoLuongDung());
                 }
             }
             else{
                 Toppings top = (Toppings) d; 
-                Inventory.returnTopping(top.ten());
+                 int index= Inventory.getIndex(top.ten());
+                    Inventory.release(index, (int)top.getSoLuongDung());
+                Inventory.release(index, (int)top.getSoLuongDung());
             }
             
             SwingUtilities

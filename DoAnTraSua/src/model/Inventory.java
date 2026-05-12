@@ -25,42 +25,36 @@
             toppingNames[3] = new ThachCuNang();
             toppingNames[4] = new TranChauTrang();
         }
-               /**
-         * Dùng 1 topping — trả về true nếu còn hàng, false nếu hết
-         */
-        public static Toppings[] getToppings(){
+        public static Toppings[] getToppings(){        // hàm lấy danh sách topping
             return Inventory.toppingNames;
         }
-        public static boolean useTopping(String name) {
+        public static boolean useTopping(String name) {  // hàm kiểm tra topping còn đủ không
             for (int i = 0; i < toppingNames.length; i++) {
                 if (toppingNames[i].ten().equals(name)) {
                     if (soLuong[i] < toppingNames[i].soLuongDung) {
                         return false; // hết hàng
                     }
-                    //soLuong[i]-=toppingNames[i].soLuongDung; // trừ kho
                     return true;
                 }
             }
             return false; // không tìm thấy topping
         }
-        public static void consumeTopping(String name) {
-        for (int i = 0; i < toppingNames.length; i++) {
-            if (toppingNames[i].ten().equals(name)) {
-                soLuong[i] -= toppingNames[i].soLuongDung;
-                return;
+        public static void consumeTopping(String name) {   //hàm trừ kho khi thanh toán
+            for (int i = 0; i < toppingNames.length; i++) {
+                if (toppingNames[i].ten().equals(name)) {
+                    soLuong[i] -= toppingNames[i].soLuongDung;
+                    return;
+                }
             }
         }
-    }
-        public static void returnTopping(String name) {
-
-        for (int i = 0; i < toppingNames.length; i++) {
-
-            if (toppingNames[i].ten().equals(name)) {
-                soLuong[i]+=toppingNames[i].soLuongDung;
-                return;
+        public static void returnTopping(String name) {     // hàm lấy danh
+            for (int i = 0; i < toppingNames.length; i++) {
+                if (toppingNames[i].ten().equals(name)) {
+                    soLuong[i]+=toppingNames[i].soLuongDung;
+                    return;
+                }
             }
         }
-    }
         /**
          * Kiểm tra số lượng còn lại (dùng cho test)
          */
@@ -72,20 +66,19 @@
             }
             return -1; // không tìm thấy
         }
-        public static int getAvailable(int i) {
+        public static int getAvailable(int i) {   //hàm lấy nguyên liệu còn lại sau khi thêm vào giỏ
             return soLuong[i] - reserved[i];
         }
-        public static boolean reserve(int i, int qty) {
+        public static boolean reserve(int i, int qty) {    // hàm kiểm tra yêu cầu thêm món có đựo thỏa không
             if (getAvailable(i) < qty) return false;
-
             reserved[i] += qty;
             return true;
-}
-        public static void release(int i, int qty) {
-                reserved[i] -= qty;
+        }
+        public static void release(int i, int qty) {  // hủy đặt trước
+            reserved[i] -= qty;
             if (reserved[i] < 0) reserved[i] = 0;
         }
-        public static void commit(int i, int qty) {
+        public static void commit(int i, int qty) {   // khi thannh toan thanh cong -nguyen lieu trong kho, - nguyen lieu dat truoc
             soLuong[i] -= qty;
             reserved[i] -= qty;
          if (reserved[i] < 0) reserved[i] = 0;

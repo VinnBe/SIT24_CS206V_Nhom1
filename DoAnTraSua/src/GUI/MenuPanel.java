@@ -640,7 +640,7 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
                 // Nền khung
                 g2.setColor(tpImage != null ? Color.WHITE : new Color(242, 232, 215));
                 g2.fillRoundRect(pad, pad, w, h, arc, arc);
-Shape oldClip = g2.getClip(); // 1. Lưu lại clip
+                Shape oldClip = g2.getClip(); // 1. Lưu lại clip
 
                 if (tpImage != null) {
                     // Clip bo góc, vẽ ảnh fill đầy khung
@@ -735,16 +735,14 @@ Shape oldClip = g2.getClip(); // 1. Lưu lại clip
                 int need =(int) (qty * tp.getSoLuongDung());
 
     // dùng hàm reserve bạn đã có
-    if (!model.Inventory.reserve(idx, need)) {
-        JOptionPane.showMessageDialog(this,
-                tp.ten() + " không đủ hàng!",
-                "Kho không đủ",
-                JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    order.addItem(tp);
-
+                if (!model.Inventory.reserve(idx, need)) {
+                    JOptionPane.showMessageDialog(this,
+                    tp.ten() + " không đủ hàng!",
+                    "Kho không đủ",
+                    JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                order.addItem(tp);
     if (cartPanel != null) {
         cartPanel.refresh();
         cartPanel.setVisible(true);
