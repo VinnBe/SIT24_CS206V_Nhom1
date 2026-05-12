@@ -110,7 +110,7 @@ public class MainFrame extends JFrame {
                 super.paintComponent(g);
             }
         };
-        cartBtn.setPreferredSize(new Dimension(100, 38));
+        cartBtn.setPreferredSize(new Dimension(80, 38));
         cartBtn.addActionListener(e -> {
             cartPanel.setVisible(!cartPanel.isVisible());
             revalidate();

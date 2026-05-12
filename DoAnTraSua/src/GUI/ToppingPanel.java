@@ -14,7 +14,7 @@ public class ToppingPanel extends JDialog {
     static final Color BG         = new Color(252, 248, 240);
     static final Color BORDER_C   = new Color(210, 185, 140);
 
-    public ToppingPanel(JFrame parent, Drinks drink, Order order, CartPanel cartPanel) {
+        public ToppingPanel(JFrame parent, Drinks drink, Order order, CartPanel cartPanel) {
         super(parent, "Tuỳ chọn: " + drink.ten(), true);
 
         // Lấy toàn bộ topping từ Inventory (không hard-code)
@@ -262,7 +262,7 @@ body.add(colPanel);
 
         final int[] qty = {1};
 
-        JButton btnMinus = styledQtyBtn("\u2212");
+        JButton btnMinus = styledQtyBtn("-");
         JLabel  qtyNum   = new JLabel("1", SwingConstants.CENTER);
         qtyNum.setFont(new Font("SansSerif", Font.BOLD, 16));
         qtyNum.setForeground(BROWN_DARK);
@@ -348,28 +348,83 @@ body.add(colPanel);
     }
 
     private JButton styledQtyBtn(String text) {
-        return new JButton(text) {
+//        return new JButton(text) {
+//            boolean hov = false;
+//            {
+//                setContentAreaFilled(false); setBorderPainted(false); setFocusPainted(false);
+//                setFont(new Font("SansSerif", Font.BOLD, 18));
+//                setForeground(BROWN_DARK);
+//                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//                setPreferredSize(new Dimension(34, 34));
+//                addMouseListener(new MouseAdapter() {
+//                    public void mouseEntered(MouseEvent e) { hov = true;  repaint(); }
+//                    public void mouseExited (MouseEvent e) { hov = false; repaint(); }
+//                });
+//            }
+//            @Override protected void paintComponent(Graphics g) {
+//                Graphics2D g2 = (Graphics2D) g.create();
+//                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//                g2.setColor(hov ? new Color(210, 185, 140) : new Color(230, 210, 170));
+//                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+//                super.paintComponent(g);
+//                g2.dispose();
+//            }
+//        };
+        Color bg = new Color(230, 215, 195);
+        Color fg = BROWN_DARK; 
+
+        return new JButton() { // KHÔNG truyền text vào super() nữa
             boolean hov = false;
             {
-                setContentAreaFilled(false); setBorderPainted(false); setFocusPainted(false);
-                setFont(new Font("SansSerif", Font.BOLD, 18));
-                setForeground(BROWN_DARK);
+                setContentAreaFilled(false); 
+                setBorderPainted(false); 
+                setFocusPainted(false);
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                setPreferredSize(new Dimension(34, 34));
+                
+                // Chốt cứng kích thước để vẽ cho chuẩn
+                Dimension size = new Dimension(32, 32);
+                setPreferredSize(size);
+                setMinimumSize(size);
+                setMaximumSize(size);
+
                 addMouseListener(new MouseAdapter() {
                     public void mouseEntered(MouseEvent e) { hov = true;  repaint(); }
                     public void mouseExited (MouseEvent e) { hov = false; repaint(); }
                 });
             }
+            
             @Override protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
+                
+                // Khử răng cưa cho nét vẽ mượt mà
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(hov ? new Color(210, 185, 140) : new Color(230, 210, 170));
-                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
-                super.paintComponent(g);
+                
+                // 1. Vẽ nền bo góc
+                g2.setColor(hov ? bg.darker() : bg);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8); 
+                
+                // 2. VẼ TAY DẤU + VÀ - Ở CHÍNH GIỮA TUYỆT ĐỐI
+                g2.setColor(fg);
+                // Cài đặt nét vẽ: Dày 2.5px, hai đầu nét bo tròn (CAP_ROUND) cực xịn
+                g2.setStroke(new BasicStroke(2.5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+                
+                int cx = getWidth() / 2;  // Tọa độ tâm X
+                int cy = getHeight() / 2; // Tọa độ tâm Y
+                int r = 6; // Chiều dài của nét vẽ (bán kính từ tâm ra)
+
+                if (text.contains("-")) {
+                    // Vẽ dấu trừ (1 nét ngang đi qua tâm)
+                    g2.drawLine(cx - r, cy, cx + r, cy);
+                } else if (text.contains("+")) {
+                    // Vẽ dấu cộng (1 nét ngang + 1 nét dọc đi qua tâm)
+                    g2.drawLine(cx - r, cy, cx + r, cy); 
+                    g2.drawLine(cx, cy - r, cx, cy + r); 
+                }
+                
                 g2.dispose();
             }
         };
+
     }
 
     private JButton styledBtn(String text, Color bg, Color fg) {
