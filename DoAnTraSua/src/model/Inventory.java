@@ -21,7 +21,7 @@
             toppingNames = new Toppings[5];
             toppingNames[0] = new TranChau();
             toppingNames[1] = new BanhPlan();
-            toppingNames[2] = new HatThuyTinh();
+            toppingNames[2] = new HatThuyTinh();    
             toppingNames[3] = new ThachCuNang();
             toppingNames[4] = new TranChauTrang();
         }
@@ -102,9 +102,10 @@
         public static void reset() {
             soLuong[0] = 50 ;
             soLuong[1] = 2;
-            soLuong[2]=1000;
+            soLuong[2]=100;
             soLuong[3]=2;
-            soLuong[4]=1000;
+            soLuong[4]=100;
+        for (int i = 0; i < reserved.length; i++) reserved[i] = 0;
 
         }
 
