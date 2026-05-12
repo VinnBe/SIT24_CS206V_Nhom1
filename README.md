@@ -41,30 +41,41 @@ Cách 2: Chạy bằng lệnh (Command Line)
 
 ```
 src/
+ ├── GUI
+     ├── CartPanel.java
+     ├── Mainframe.java
+     ├── MenuPanel.java
+     ├── Receiptdialog.java
+     └──ToppingPanel.java
+ ├── Service
+     └── OrderService.java
  ├── doantrasua
-     ├── main
+     ├── Main.java
  ├── model/
       ├── BanhPlan.java
-      ├── Drink
-      ├── Drink
-      ├── Drink
-      ├── Drink
-      ├── Drink
-      ├── Drinks
-      ├── Menu 
-      ├── Order
-      ├── TraSuaSocola
-      ├── TraSuaThaiXanh
-      ├── TraSuaTruyenThong
-      ├── BanhPlan
-      ├── TranChau
-      ├── Inventory
-      ├── Toppings
- └── controller/
- ├── service/        
- │    └── OrderService.java
- └── test/          
-      └── TestCase.java
+      ├── Drink.java
+      ├── Drinks.java
+      ├── HatThuyTinh.java
+      ├── Inventory.java
+      ├── MatchaDaXay.java
+      ├── Menu.java
+      ├── Order.java
+      ├── SocolaDaXay.java
+      ├── ThachCuNang.java
+      ├── Toppings.java
+      ├── TraChanh.java
+      ├── TraDau.java
+      ├── TraMangCau.java
+      ├── TraOi.java
+      ├── TraSuaMatCha.java      
+      ├── TraSuaSocola.java
+      ├── TraSuaThaiXanh.java
+      ├── TraSuaTruyenThong.java
+      ├── TraVai.java
+      ├── TranChau.java
+      └── TranChayTrang.java
+ └── resources         
+      └── *.jpg / *.png
 ```
 
 ---
