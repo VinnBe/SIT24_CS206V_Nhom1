@@ -12,6 +12,7 @@ import java.awt.event.*;
 import java.awt.geom.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import model.Inventory;
 
 /**
  * ReceiptDialog – popup hóa đơn nhiệt (thermal receipt style)
@@ -317,7 +318,23 @@ public Receiptdialog(JFrame parent, Order order, String ten, String sdt, String 
         JButton ok    = makeBtn("XÁC NHẬN ĐẶT HÀNG", new Color(55, 30, 8), Color.WHITE);
         JButton close = makeBtn("ĐÓNG", PAPER_BG, INK_MUTED);
         close.setBorder(new LineBorder(new Color(185, 175, 155), 1, true));
-        ok   .addActionListener(e -> { 
+        ok.addActionListener(e -> { 
+        for (Drink d : order.getItems()) {
+
+            if (d instanceof Drinks) {
+                Drinks drink = (Drinks) d;
+
+                for (Toppings tp : drink.getDSTopping()) {      
+                    int index=Inventory.getIndex(tp.ten());
+                    Inventory.commit(index, (int)tp.getSoLuongDung());
+                }
+
+            } else if (d instanceof Toppings) {
+                Toppings top = (Toppings) d;
+                int index=Inventory.getIndex(top.ten());
+                    Inventory.commit(index, (int)top.getSoLuongDung());
+    }
+            }  
             order.setSoLuong(0);
             dispose(); 
             if (onConfirmed != null) onConfirmed.run(); });

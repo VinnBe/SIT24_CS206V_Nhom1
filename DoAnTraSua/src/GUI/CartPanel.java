@@ -500,22 +500,7 @@ private void showInvoice() {
                 tfPhone.requestFocus();
                 return;
             }
-            for (Drink d : order.getItems()) {
-
-            if (d instanceof Drinks) {
-                Drinks drink = (Drinks) d;
-
-                for (Toppings tp : drink.getDSTopping()) {      
-                    int index=Inventory.getIndex(tp.ten());
-                    Inventory.commit(index, (int)tp.getSoLuongDung());
-                }
-
-            } else if (d instanceof Toppings) {
-                Toppings top = (Toppings) d;
-                int index=Inventory.getIndex(top.ten());
-                    Inventory.commit(index, (int)top.getSoLuongDung());
-    }
-            }
+            
             // Lấy phương thức thanh toán
             String phuongThuc = rbCash.isSelected() ? "💵 Tiền mặt (COD)"
                               : rbMomo.isSelected() ? "🟣 Ví MoMo"
