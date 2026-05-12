@@ -28,9 +28,9 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         
-        cartImg = new ImageIcon(
-        getClass().getResource("/resources/cart.png")
-    ).getImage();
+//        cartImg = new ImageIcon(
+//        getClass().getResource("/resources/cart.png")
+//    ).getImage();
 
     MenuPanel menu2 = new MenuPanel(menu, order, cartPanel, cartImg);
         setTitle("MeoMeoTea");

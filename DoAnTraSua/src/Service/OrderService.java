@@ -26,15 +26,22 @@ public class OrderService {
     }
 
     // Thêm topping — kiểm tra kho trước
-    public boolean addTopping(List<Drink> items, Toppings tp) {
+       public boolean addTopping(List<Drink> items, Toppings tp) {
         if (Inventory.useTopping(tp.ten())) {
+            Inventory.consumeTopping(tp.ten()); // trừ kho thật sự
             items.add(tp);
             return true;
+
         }
         System.out.println("Khong du nguyen lieu: " + tp.ten());
         return false;
     }
-
+        // Hoàn trả topping khi huỷ đơn
+    public void removeTopping(List<Drink> items, Toppings tp) {
+        if (items.remove(tp)) {
+            Inventory.returnTopping(tp.ten());
+        }
+    }
     // Đếm số món nước (không tính topping)
     public int getSoLuong(List<Drink> items) {
         int count = 0;
