@@ -17,6 +17,9 @@ public class Toppings implements Drink{
     public double getPrice(){            // lấy giá topping 
         return this.price;
     }
+    public double getSoLuongDung(){
+        return this.soLuongDung;
+    }
     public String ten(){
         return this.name;                   // lấy tên của topping
     }

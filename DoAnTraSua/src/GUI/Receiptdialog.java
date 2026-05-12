@@ -157,7 +157,7 @@ public Receiptdialog(JFrame parent, Order order, String ten, String sdt, String 
 
 // Gộp các món trùng tên
     java.util.LinkedHashMap<String, double[]> grouped = new java.util.LinkedHashMap<>();
-        for (Drink d : order.item) {
+        for (Drink d : order.getItems()) {
         String key = getName(d);
         if (grouped.containsKey(key)) {
             grouped.get(key)[0] += d.getPrice();
@@ -171,7 +171,7 @@ public Receiptdialog(JFrame parent, Order order, String ten, String sdt, String 
     }
     body.add(solid());
         double sub = 0;
-        for (Drink d : order.item) sub += d.getPrice();
+        for (Drink d : order.getItems()) sub += d.getPrice();
         boolean disc = order.getSoLuong() >= 5;
         double  cut  = disc ? Math.round(sub * 0.1) : 0;
         double  total = sub - cut;

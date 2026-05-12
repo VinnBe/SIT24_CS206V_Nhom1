@@ -705,19 +705,49 @@ private JPanel buildDaXayCard(Drinks drink, int idx) {
 //            addBtn.setEnabled(false);
 //        } else {
             addBtn = buildRoundBtn("+ Thêm", new Color(101, 67, 33), GOLD);
-            addBtn.addActionListener(e -> {
-                order.addItem(tp);
-                if (cartPanel != null) {
-                    cartPanel.refresh();
-                    cartPanel.setVisible(true);
-//                    SwingUtilities.getWindowAncestor(this).revalidate();
-                    Window parentWindow = SwingUtilities.getWindowAncestor(this);
-                    if (parentWindow != null) {
-                        parentWindow.revalidate(); 
-                        parentWindow.repaint();
-                    }
-                }
-            });
+//            addBtn.addActionListener(e -> {
+//                
+//                order.addItem(tp);
+//                if (cartPanel != null) {
+//                    cartPanel.refresh();
+//                    cartPanel.setVisible(true);
+////                    SwingUtilities.getWindowAncestor(this).revalidate();
+//                    Window parentWindow = SwingUtilities.getWindowAncestor(this);
+//                    if (parentWindow != null) {
+//                        parentWindow.revalidate(); 
+//                        parentWindow.repaint();
+//                    }
+//                }
+//            });
+                addBtn.addActionListener(e -> {
+
+    int id = model.Inventory.getIndex(tp.ten());
+    int qty = 1;
+
+    int need =(int) (qty * tp.getSoLuongDung());
+
+    // dùng hàm reserve bạn đã có
+    if (!model.Inventory.reserve(idx, need)) {
+        JOptionPane.showMessageDialog(this,
+                tp.ten() + " không đủ hàng!",
+                "Kho không đủ",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    order.addItem(tp);
+
+    if (cartPanel != null) {
+        cartPanel.refresh();
+        cartPanel.setVisible(true);
+
+        Window w = SwingUtilities.getWindowAncestor(this);
+        if (w != null) {
+            w.revalidate();
+            w.repaint();
+        }
+    }
+});
                     
 
         JPanel info = new JPanel(new GridLayout(3, 1, 0, 4));

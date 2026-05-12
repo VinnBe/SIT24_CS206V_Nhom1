@@ -133,7 +133,7 @@ public class CartPanel extends JPanel {
         };
         clearBtn.addActionListener(e -> {
              // hoàn topping
-            for (Drink d : order.item) {
+            for (Drink d : order.getItems()) {
 
                 if (d instanceof Drinks) {
 
@@ -152,7 +152,7 @@ public class CartPanel extends JPanel {
             }
             
     
-            order.item.clear();
+            order.getItems().clear();
             order.setSoLuong(0);
             refresh();
               SwingUtilities
@@ -204,10 +204,10 @@ public class CartPanel extends JPanel {
     public void refresh() {
         itemsPanel.removeAll();
 
-        if (order.item.isEmpty()) {
+        if (order.getItems().isEmpty()) {
             showEmptyState();
         } else {
-            for (Drink d : order.item) {
+            for (Drink d : order.getItems()) {
                 itemsPanel.add(buildItemRow(d));
                 itemsPanel.add(Box.createVerticalStrut(1));
             }
@@ -305,7 +305,7 @@ public class CartPanel extends JPanel {
             SwingUtilities
             .getWindowAncestor(del)
             .repaint();
-            order.item.remove(d);
+            order.getItems().remove(d);
             order.setSoLuong(Math.max(0, order.getSoLuong() - 1));
             refresh();
         });
@@ -320,7 +320,7 @@ public class CartPanel extends JPanel {
     //  BƯỚC 1: HÓA ĐƠN – popup giấy nhiệt
     // ══════════════════════════════════════════════════════════
 private void showInvoice() {
-    if (order.item.isEmpty()) {
+    if (order.getItems().isEmpty()) {
         JOptionPane.showMessageDialog(parent,
             "Giỏ hàng đang trống!\nVui lòng chọn món trước.",
             "Thông báo", JOptionPane.WARNING_MESSAGE);
@@ -478,7 +478,7 @@ private void showInvoice() {
             String ten   = tfTen  .getText().trim();
             String phone = tfPhone.getText().trim();
             String addr  = tfAddr .getText().trim();
-
+            
             // Kiểm tra bỏ trống
             if (ten.isEmpty() || phone.isEmpty() || addr.isEmpty()) {
                 shake(dialog);
@@ -496,7 +496,20 @@ private void showInvoice() {
                 tfPhone.requestFocus();
                 return;
             }
+            for (Drink d : order.getItems()) {
 
+            if (d instanceof Drinks) {
+                Drinks drink = (Drinks) d;
+
+                for (Toppings tp : drink.getDSTopping()) {
+                    Inventory.consumeTopping(tp.ten());
+                }
+
+            } else if (d instanceof Toppings) {
+                Toppings top = (Toppings) d;
+                Inventory.consumeTopping(top.ten());
+    }
+            }
             // Lấy phương thức thanh toán
             String phuongThuc = rbCash.isSelected() ? "💵 Tiền mặt (COD)"
                               : rbMomo.isSelected() ? "🟣 Ví MoMo"
@@ -510,7 +523,7 @@ private void showInvoice() {
 
     // Mở hóa đơn xác nhận, sau khi confirm mới reset
     new Receiptdialog(parent, order, ten, phone, addr).onConfirmed(() -> {
-        order.item.clear();
+        order.getItems().clear();
         refresh();
         setVisible(false);
         parent.revalidate();

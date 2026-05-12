@@ -293,23 +293,73 @@ body.add(colPanel);
         JButton confirmBtn = styledBtn("Thêm vào giỏ", BROWN_DARK, GOLD);
         JButton skipBtn    = styledBtn("Bỏ qua topping", new Color(235, 220, 190), BROWN);
 
-        confirmBtn.addActionListener(e -> {
-            for (int q = 0; q < qty[0]; q++) {
-                Drinks copy = drink.copy();
-                copy.setSize(rbL.isSelected() ? "L" : "M");
-                copy.setMucDuong(mucDuongVals[selectedDuong[0]]);  // thêm vào đây
-                copy.setMucDa(mucDaVals[selectedDa[0]]);  
-                for (int i = 0; i < toppings.length; i++) {
-                    if (boxes[i].isSelected()) {
-                        copy.themTopping(toppings[i]);
-                    }
-                }
-                order.addItem(copy);
-            }
-            refreshCart(cartPanel);
-            dispose();
-        });
+//        confirmBtn.addActionListener(e -> {
+//            
+//            for (int q = 0; q < qty[0]; q++) {
+//                Drinks copy = drink.copy();
+//                copy.setSize(rbL.isSelected() ? "L" : "M");
+//                copy.setMucDuong(mucDuongVals[selectedDuong[0]]);  // thêm vào đây
+//                copy.setMucDa(mucDaVals[selectedDa[0]]);  
+//                for (int i = 0; i < toppings.length; i++) {
+//                    if (boxes[i].isSelected()) {
+//                        String name = toppings[i].ten();
+//
+//                // ❗ check tồn kho trước khi thêm
+//                        if (Inventory.getSoLuong(name) <toppings[i].getSoLuongDung()) {
+//                            JOptionPane.showMessageDialog(this,
+//                                name + " đã hết hàng!",
+//                                "Hết topping",
+//                            JOptionPane.WARNING_MESSAGE);
+//                            return; // dừng luôn không add giỏ
+//                        }
+//                        copy.themTopping(toppings[i]);
+//                    }
+//                }
+//                order.addItem(copy);
+//            }
+//            refreshCart(cartPanel);
+//            dispose();
+//        });
+confirmBtn.addActionListener(e -> {
 
+    // 1. CHECK + RESERVE (kho ảo)
+    for (int i = 0; i < toppings.length; i++) {
+        if (boxes[i].isSelected()) {
+
+            int idx = Inventory.getIndex(toppings[i].ten());
+            int need =(int)( qty[0] * toppings[i].getSoLuongDung());
+
+            // reserve luôn, nếu không đủ thì fail ngay
+            if (!Inventory.reserve(idx, need)) {
+                JOptionPane.showMessageDialog(this,
+                        toppings[i].ten() + " không đủ hàng!",
+                        "Kho không đủ",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+    }
+
+    // 2. ADD GIỎ (KHÔNG CHECK KHO NỮA)
+    for (int q = 0; q < qty[0]; q++) {
+
+        Drinks copy = drink.copy();
+        copy.setSize(rbL.isSelected() ? "L" : "M");
+        copy.setMucDuong(mucDuongVals[selectedDuong[0]]);
+        copy.setMucDa(mucDaVals[selectedDa[0]]);
+
+        for (int i = 0; i < toppings.length; i++) {
+            if (boxes[i].isSelected()) {
+                copy.themTopping(toppings[i]);
+            }
+        }
+
+        order.addItem(copy);
+    }
+
+    refreshCart(cartPanel);
+    dispose();
+});
         skipBtn.addActionListener(e -> {
             for (int q = 0; q < qty[0]; q++) {
                 Drinks copy = drink.copy();
