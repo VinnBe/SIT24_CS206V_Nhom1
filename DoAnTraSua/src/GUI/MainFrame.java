@@ -82,9 +82,7 @@ public class MainFrame extends JFrame {
         logoArea.add(tagline);
 
         // Cart toggle button
-        ImageIcon cartIcon = new ImageIcon(
-        getClass().getResource("/resources/cart3.png")
-        );
+        ImageIcon cartIcon = new ImageIcon("resources/cart3.png");
 
         Image img = cartIcon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
         cartIcon = new ImageIcon(img);
